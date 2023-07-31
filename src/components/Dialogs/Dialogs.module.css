@@ -1,0 +1,16 @@
+.wrap {
+	background-color: lightblue;
+	color: green;
+	display: flex;
+
+}
+
+.dialogs,
+.messages {
+	padding: 15px;
+	margin: 10px;
+}
+
+.dialogs {
+	border-right: 1px solid lightslategray;
+}
