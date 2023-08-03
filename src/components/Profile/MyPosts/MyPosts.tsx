@@ -1,11 +1,11 @@
 import React from 'react';
 import s from './MyPosts.module.css'
 import Post, { PostType } from './Post/Post';
+import { ActionType, addPostAC, changedTextPostAC, } from 'redux/state';
 
 export type MyPostType = {
 	data: PostType[]
-	addPost: (postMessage: string | undefined) => void
-	updateNewPostText: (newMessage: string | undefined) => void
+	dispatch: (action: ActionType) => void
 	newPostText: string | undefined
 }
 
@@ -14,16 +14,14 @@ const MyPosts = (props: MyPostType) => {
 	let postsElement: React.RefObject<HTMLTextAreaElement> = React.createRef();
 
 	const handleButtonClick = () => {
-		let text = postsElement.current?.value;
-		// console.log(postsElement.current?.value);
-		props.addPost(text)
 
+		props.dispatch(addPostAC())
 		postsElement.current?.focus()
 	}
 
 	const handleMessageChange = () => {
 		let character = postsElement.current?.value;
-		props.updateNewPostText(character)
+		props.dispatch(changedTextPostAC(character))
 	}
 
 	return (

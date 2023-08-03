@@ -5,19 +5,17 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
 import Profile from './components/Profile/Profile';
 import Header from './components/Header/Header';
-import Dialogs, { DialogType, MessageType } from 'components/Dialogs/Dialogs';
+import Dialogs from 'components/Dialogs/Dialogs';
 import Music from 'components/Music/Music';
-import { MyPostType } from 'components/Profile/MyPosts/MyPosts';
+import { StoreType } from 'redux/state';
 
-
-type PropsType = MyPostType & {
-  dialogs: DialogType[]
-  messages: MessageType[]
-
+type PropsType = {
+  store: StoreType
 }
 
+const App = (props: PropsType) => {
 
-function App(props: PropsType) {
+  const state = props.store.getState()
 
   return (
     <BrowserRouter>
@@ -26,8 +24,18 @@ function App(props: PropsType) {
         <Navbar />
 
         <div className="content">
-          <Route path='/profile' render={() => <Profile data={props.data} addPost={props.addPost} updateNewPostText={props.updateNewPostText} newPostText={props.newPostText} />} />
-          <Route path='/dialogs' render={() => <Dialogs dialogs={props.dialogs} messages={props.messages} />} />
+          <Route path='/profile' render={() => <Profile
+            data={state.posts}
+            dispatch={props.store.dispatch.bind(props.store)}
+            newPostText={state.newPostText}
+          />} />
+
+          <Route path='/dialogs' render={() => <Dialogs
+            dialogs={state.dialogsPage.dialogs}
+            messages={state.dialogsPage.messages}
+            newMessageBody={state.dialogsPage.newMessageBody}
+            dispatch={props.store.dispatch.bind(props.store)}
+          />} />
 
           <Route path='/music' component={Music} />
           <Route path='/news' component={Music} />

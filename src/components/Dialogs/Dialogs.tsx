@@ -1,6 +1,8 @@
 
 import { NavLink } from 'react-router-dom'
 import s from './Dialogs.module.css'
+import { ChangeEvent } from 'react'
+import { ActionType, changedNewMessageAC, sendMessageAC } from 'redux/state'
 
 export type DialogType = {
 	name: string,
@@ -27,10 +29,18 @@ const MessageItem = (props: MessageType) => {
 type DialogPropsType = {
 	dialogs: DialogType[],
 	messages: MessageType[]
+	newMessageBody: string
+	dispatch: (action: ActionType) => void
 }
 
 const Dialogs = (props: DialogPropsType) => {
 
+	const changeMessageHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+		props.dispatch(changedNewMessageAC(e.currentTarget.value))
+	}
+	const sendMessageHandler = () => {
+		props.dispatch(sendMessageAC())
+	}
 	return (
 		<div className={s.wrap}>
 			<div className={s.dialogs}>
@@ -43,6 +53,10 @@ const Dialogs = (props: DialogPropsType) => {
 					props.messages.map(m => <MessageItem message={m.message} key={m.id} />)
 				}
 			</ul>
+			<div>
+				<textarea value={props.newMessageBody} onChange={changeMessageHandler}></textarea>
+				<button onClick={sendMessageHandler}>Send</button>
+			</div>
 		</div>
 	)
 }
