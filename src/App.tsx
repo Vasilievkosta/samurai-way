@@ -7,15 +7,22 @@ import Profile from './components/Profile/Profile';
 import Header from './components/Header/Header';
 import Dialogs from 'components/Dialogs/Dialogs';
 import Music from 'components/Music/Music';
-import { StoreType } from 'redux/state';
+import { ActionType } from './redux/redux-store';
+import { ProfileStateType } from 'redux/profile-reducer';
+import { DialogsStateType } from 'redux/dialogs-reducer';
 
-type PropsType = {
-  store: StoreType
+
+export type RootStateType = {
+  profilePage: ProfileStateType
+  dialogsPage: DialogsStateType
 }
 
-const App = (props: PropsType) => {
+export type PropsType = {
+  state: RootStateType
+  dispatch: (action: ActionType) => void
+}
 
-  const state = props.store.getState()
+const App: React.FC<PropsType> = (props) => {
 
   return (
     <BrowserRouter>
@@ -25,16 +32,15 @@ const App = (props: PropsType) => {
 
         <div className="content">
           <Route path='/profile' render={() => <Profile
-            data={state.posts}
-            dispatch={props.store.dispatch.bind(props.store)}
-            newPostText={state.newPostText}
+            // posts={state.profilePage.posts}            
+            // newPostText={state.profilePage.newPostText}
+            dispatch={props.dispatch}
+            state={props.state}
           />} />
 
           <Route path='/dialogs' render={() => <Dialogs
-            dialogs={state.dialogsPage.dialogs}
-            messages={state.dialogsPage.messages}
-            newMessageBody={state.dialogsPage.newMessageBody}
-            dispatch={props.store.dispatch.bind(props.store)}
+            dispatch={props.dispatch}
+            state={props.state}
           />} />
 
           <Route path='/music' component={Music} />

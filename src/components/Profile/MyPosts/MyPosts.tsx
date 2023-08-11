@@ -1,10 +1,10 @@
 import React from 'react';
 import s from './MyPosts.module.css'
 import Post, { PostType } from './Post/Post';
-import { ActionType, addPostAC, changedTextPostAC, } from 'redux/state';
+import { ActionType, addPostAC, changedTextPostAC, } from 'redux/redux-store';
 
 export type MyPostType = {
-	data: PostType[]
+	posts: PostType[]
 	dispatch: (action: ActionType) => void
 	newPostText: string | undefined
 }
@@ -21,6 +21,7 @@ const MyPosts = (props: MyPostType) => {
 
 	const handleMessageChange = () => {
 		let character = postsElement.current?.value;
+		console.log(character)
 		props.dispatch(changedTextPostAC(character))
 	}
 
@@ -32,7 +33,7 @@ const MyPosts = (props: MyPostType) => {
 			</div>
 			<div className={s.posts}>
 				{
-					props.data.map(p => <Post message={p.message} like={p.like} key={p.id} />)
+					props.posts.map(p => <Post message={p.message} like={p.like} key={p.id} />)
 				}
 			</div>
 		</>

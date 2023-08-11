@@ -1,16 +1,18 @@
-import { PostType } from 'components/Profile/MyPosts/Post/Post';
-import { DialogType, MessageType } from 'components/Dialogs/Dialogs';
+// import { PostType } from 'components/Profile/MyPosts/Post/Post';
+import profileReducer, { ProfileStateType } from './profile-reducer';
+import dialogsReducer, { DialogsStateType } from './dialogs-reducer';
+
 
 export let store: StoreType = {
 	_state: {
-		posts: [
-			{ id: '1', message: 'Hi! How are you?', like: 15 },
-			{ id: '2', message: 'Welcome!', like: 10 },
-			{ id: '3', message: 'Blabla', like: 11 },
-		],
-
-		newPostText: 'react.js',
-
+		profilePage: {
+			posts: [
+				{ id: '1', message: 'Hi! How are you?', like: 15 },
+				{ id: '2', message: 'Welcome!', like: 10 },
+				{ id: '3', message: 'Blabla', like: 11 },
+			],
+			newPostText: 'react.js'
+		},
 		dialogsPage: {
 			dialogs: [
 				{ name: 'Vincent', id: '1' },
@@ -36,49 +38,50 @@ export let store: StoreType = {
 		console.log('subscribe')
 		this._rerenderEntireTree = observer;
 	},
+	// dispatch(action: ActionType) {
+	// 	if (action.type === 'ADD-POST') {
+	// 		let newPost: PostType = {
+	// 			id: String(new Date().getTime()),
+	// 			message: this._state.profilePage.newPostText,
+	// 			like: 0
+	// 		}
+	// 		this._state.profilePage.posts.push(newPost)
+	// 		console.log(newPost)
+	// 		this._state.profilePage.newPostText = '';
+	// 		this._rerenderEntireTree();
+
+	// 	} else if (action.type === 'CHANGE-TEXT-POST') {
+	// 		this._state.profilePage.newPostText = action.newText
+	// 		this._rerenderEntireTree();
+
+	// 	} else if (action.type === 'CHANGE-NEW-MESSAGE') {
+	// 		this._state.dialogsPage.newMessageBody = action.newMessage
+	// 		this._rerenderEntireTree();
+
+	// 	} else if (action.type === 'SEND-MESSAGE') {
+	// 		let newMessage = {
+	// 			id: String(new Date().getTime()),
+	// 			message: this._state.dialogsPage.newMessageBody
+	// 		}
+	// 		this._state.dialogsPage.messages.push(newMessage)
+	// 		this._state.dialogsPage.newMessageBody = ''
+	// 		this._rerenderEntireTree();
+	// 	}
+	// },
+
+
+
 	dispatch(action: ActionType) {
-		if (action.type === 'ADD-POST') {
-			let newPost: PostType = {
-				id: String(new Date().getTime()),
-				message: this._state.newPostText,
-				like: 0
-			}
-			this._state.posts.push(newPost)
-			console.log(newPost)
-			this._state.newPostText = '';
-			this._rerenderEntireTree();
+		this._state.profilePage = profileReducer(this._state.profilePage, action);
 
-		} else if (action.type === 'CHANGE-TEXT-POST') {
-			this._state.newPostText = action.newText
-			console.log(action.newText)
-			this._rerenderEntireTree();
-
-		} else if (action.type === 'CHANGE-NEW-MESSAGE') {
-			this._state.dialogsPage.newMessageBody = action.newMessage
-			this._rerenderEntireTree();
-
-		} else if (action.type === 'SEND-MESSAGE') {
-			let newMessage = {
-				id: String(new Date().getTime()),
-				message: this._state.dialogsPage.newMessageBody
-			}
-			this._state.dialogsPage.messages.push(newMessage)
-			this._state.dialogsPage.newMessageBody = ''
-			this._rerenderEntireTree();
-		}
-	},
-
+		this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
+		this._rerenderEntireTree();
+	}
 }
 
 export type RootStateType = {
-	posts: PostType[]
-	newPostText: string | undefined
-	dialogsPage: {
-		dialogs: DialogType[]
-		messages: MessageType[]
-		newMessageBody: string
-	}
-
+	profilePage: ProfileStateType
+	dialogsPage: DialogsStateType
 }
 
 export type ActionType = ReturnType<typeof addPostAC>
@@ -114,5 +117,5 @@ export type StoreType = {
 
 
 // @ts-ignore
-window.store = store;
+// window.store = store;
 
