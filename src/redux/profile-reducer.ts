@@ -1,12 +1,12 @@
 import { PostType } from 'components/Profile/MyPosts/Post/Post';
 import { ActionType } from './redux-store';
 
-export type ProfileStateType = {
+export type InitialStateProfileType = {
 	posts: PostType[]
 	newPostText: string | undefined
 }
 
-export let initialState = {
+const initialState: InitialStateProfileType = {
 	posts: [
 		{ id: '1', message: 'Hi! How are you?', like: 15 },
 		{ id: '2', message: 'Welcome!', like: 10 },
@@ -15,7 +15,7 @@ export let initialState = {
 	newPostText: 'react.js'
 }
 
-const profileReducer = (state: ProfileStateType = initialState, action: ActionType) => {
+const profileReducer = (state: InitialStateProfileType = initialState, action: ActionType): InitialStateProfileType => {
 
 	switch (action.type) {
 		case 'ADD-POST':
@@ -24,15 +24,17 @@ const profileReducer = (state: ProfileStateType = initialState, action: ActionTy
 				message: state.newPostText,
 				like: 0
 			}
-			state.posts.push(newPost)
+			let copyState = { ...state, posts: state.posts.map(m => m) }
+			copyState.posts.push(newPost)
 			console.log(newPost)
-			state.newPostText = '';
-			return state;
+			copyState.newPostText = '';
+			return copyState;
 
 		case 'CHANGE-TEXT-POST':
-			state.newPostText = action.newText
+			let newState = { ...state }
+			newState.newPostText = action.newText
 			console.log(action.newText)
-			return state;
+			return newState;
 
 		default:
 			return state;

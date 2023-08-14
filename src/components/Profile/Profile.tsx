@@ -1,15 +1,14 @@
-import MyPosts from './MyPosts/MyPosts';
-import ProfileInfo from './ProfileInfo/ProfileInfo';
-import { PropsType } from 'App';
 
-const Profile = (props: PropsType) => {
+import MyPostsContainer from './MyPosts/MyPostsContainer';
+import ProfileInfo from './ProfileInfo/ProfileInfo';
+
+
+const Profile = () => {
 
 	return (
 		<div >
 			<ProfileInfo />
-			<MyPosts posts={props.state.profilePage.posts}
-				dispatch={props.dispatch}
-				newPostText={props.state.profilePage.newPostText} />
+			<MyPostsContainer />
 		</div>
 	)
 }

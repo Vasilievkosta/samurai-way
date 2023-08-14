@@ -1,6 +1,7 @@
 // import { PostType } from 'components/Profile/MyPosts/Post/Post';
-import profileReducer, { ProfileStateType } from './profile-reducer';
-import dialogsReducer, { DialogsStateType } from './dialogs-reducer';
+import profileReducer from './profile-reducer';
+import dialogsReducer from './dialogs-reducer';
+import { AppStateType } from './redux-store';
 
 
 export let store: StoreType = {
@@ -79,10 +80,7 @@ export let store: StoreType = {
 	}
 }
 
-export type RootStateType = {
-	profilePage: ProfileStateType
-	dialogsPage: DialogsStateType
-}
+
 
 export type ActionType = ReturnType<typeof addPostAC>
 	| ReturnType<typeof changedTextPostAC>
@@ -108,8 +106,8 @@ export const changedNewMessageAC = (newMessage: string) => {
 }
 
 export type StoreType = {
-	_state: RootStateType
-	getState: () => RootStateType
+	_state: AppStateType
+	getState: () => AppStateType
 	subscribe: (observer: () => void) => void
 	_rerenderEntireTree: () => void
 	dispatch: (action: ActionType) => void

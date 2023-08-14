@@ -1,55 +1,33 @@
 
-import { NavLink } from 'react-router-dom'
 import s from './Dialogs.module.css'
 import { ChangeEvent } from 'react'
-import { changedNewMessageAC, sendMessageAC } from 'redux/redux-store'
-import { PropsType } from 'App'
+import { DialogItem } from './DialogItem'
+import { MessageItem } from './MessageItem'
+import { DialogsType } from './DialogsContainer'
 
-export type DialogType = {
-	name: string,
-	id: string
-}
-export type MessageType = {
-	id?: string,
-	message: string
-}
+const Dialogs = (props: DialogsType) => {
 
-const DialogItem = (props: DialogType) => {
-	const path = `/dialogs/${props.id}`
-	return (
-		<div className="dialog">
-			<NavLink to={path}>{props.name}</NavLink>
-		</div >
-	)
-}
-
-const MessageItem = (props: MessageType) => {
-	return <li className="message">{props.message}</li >
-}
-
-const Dialogs = (props: PropsType) => {
-
-	const changeMessageHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-		props.dispatch(changedNewMessageAC(e.currentTarget.value))
+	const callbackChangeMessage = (e: ChangeEvent<HTMLTextAreaElement>) => {
+		props.changeMessageHandler(e.currentTarget.value)
 	}
-	const sendMessageHandler = () => {
-		props.dispatch(sendMessageAC())
+	const callbackSendMessage = () => {
+		props.sendMessageHandler()
 	}
 	return (
 		<div className={s.wrap}>
 			<div className={s.dialogs}>
 				{
-					props.state.dialogsPage.dialogs.map(d => <DialogItem name={d.name} id={d.id} key={d.id} />)
+					props.dialogsPage.dialogs.map(d => <DialogItem name={d.name} id={d.id} key={d.id} />)
 				}
 			</div>
 			<ul className={s.messages}>
 				{
-					props.state.dialogsPage.messages.map(m => <MessageItem message={m.message} key={m.id} />)
+					props.dialogsPage.messages.map(m => <MessageItem message={m.message} key={m.id} />)
 				}
 			</ul>
 			<div>
-				<textarea value={props.state.dialogsPage.newMessageBody} onChange={changeMessageHandler}></textarea>
-				<button onClick={sendMessageHandler}>Send</button>
+				<textarea value={props.dialogsPage.newMessageBody} onChange={callbackChangeMessage}></textarea>
+				<button onClick={callbackSendMessage}>Send</button>
 			</div>
 		</div>
 	)
