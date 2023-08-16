@@ -1,0 +1,41 @@
+.list {
+	list-style-type: 'none';
+}
+
+.item {
+	border-radius: 10px;
+	margin: 5px;
+	padding: 5px;
+	display: flex;
+
+}
+
+.follow {
+	margin-right: 20px;
+	text-align: center;
+	min-width: 80px;
+	padding: 5px 0;
+}
+
+.photo {
+	width: 80px;
+	height: 80px;
+	object-fit: cover;
+	border-radius: 50%;
+	border: 2px solid lightseagreen;
+	margin-bottom: 10px;
+}
+
+.description {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-radius: 10px;
+	background-color: #acdcdd;
+	width: 100%;
+	padding: 10px;
+}
+
+.about {
+	font-weight: 600;
+}

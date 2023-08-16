@@ -1,5 +1,5 @@
-import { InitialStateProfileType } from 'redux/profile-reducer'
-import { ActionType, AppStateType, addPostAC, changedTextPostAC } from 'redux/redux-store'
+import { InitialStateProfileType, addPostAC, changedTextPostAC } from 'redux/profile-reducer'
+import { ActionType, AppStateType } from 'redux/redux-store'
 import MyPosts from './MyPosts'
 import { connect } from 'react-redux';
 

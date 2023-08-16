@@ -32,23 +32,28 @@ const dialogsReducer = (state: InitialStateDialogsType = initialState, action: A
 				id: String(new Date().getTime()),
 				message: state.newMessageBody
 			}
-			let copyState = {
+			return {
 				...state,
-				dialogs: state.dialogs.map(d => { return { ...d } }),
-				messages: state.messages.map(m => { return { ...m } })
+				messages: [...state.messages, newMessage],
+				newMessageBody: ''
 			};
-			copyState.messages.push(newMessage)
-			copyState.newMessageBody = ''
-			return copyState;
 
 		case 'CHANGE-NEW-MESSAGE':
-			let newState = { ...state }
-			newState.newMessageBody = action.newMessage
-			return newState;
+			return { ...state, newMessageBody: action.newMessage }
+
 
 		default:
 			return state;
 	}
+}
+
+export const sendMessageAC = () => ({ type: 'SEND-MESSAGE' }) as const
+
+export const changedNewMessageAC = (newMessage: string) => {
+	return {
+		type: 'CHANGE-NEW-MESSAGE',
+		newMessage: newMessage
+	} as const
 }
 
 export default dialogsReducer;

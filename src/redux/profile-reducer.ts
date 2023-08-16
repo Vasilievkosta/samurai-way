@@ -24,21 +24,28 @@ const profileReducer = (state: InitialStateProfileType = initialState, action: A
 				message: state.newPostText,
 				like: 0
 			}
-			let copyState = { ...state, posts: state.posts.map(m => m) }
-			copyState.posts.push(newPost)
-			console.log(newPost)
-			copyState.newPostText = '';
-			return copyState;
+			return {
+				...state,
+				posts: [...state.posts, newPost],
+				newPostText: ''
+			}
 
 		case 'CHANGE-TEXT-POST':
-			let newState = { ...state }
-			newState.newPostText = action.newText
-			console.log(action.newText)
-			return newState;
+			return { ...state, newPostText: action.newText }
+
 
 		default:
 			return state;
 	}
+}
+
+export const addPostAC = () => ({ type: 'ADD-POST' }) as const
+
+export const changedTextPostAC = (newText: string | undefined) => {
+	return {
+		type: 'CHANGE-TEXT-POST',
+		newText: newText
+	} as const
 }
 
 export default profileReducer;

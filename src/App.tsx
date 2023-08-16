@@ -6,6 +6,7 @@ import Profile from './components/Profile/Profile';
 import Header from './components/Header/Header';
 import Music from 'components/Music/Music';
 import DialogsContainer from 'components/Dialogs/DialogsContainer';
+import UsersContainer from 'components/Users/UsersContainer';
 
 
 
@@ -35,6 +36,7 @@ const App = () => {
           <Route path='/music' component={Music} />
           <Route path='/news' component={Music} />
           <Route path='/settings' component={Music} />
+          <Route path='/users' component={UsersContainer} />
 
         </div>
 

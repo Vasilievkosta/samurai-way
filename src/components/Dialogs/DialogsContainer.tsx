@@ -1,8 +1,8 @@
 // import { PropsType, RootStateType } from 'App';
 import Dialogs from './Dialogs';
-import { ActionType, AppStateType, changedNewMessageAC, sendMessageAC } from 'redux/redux-store'
+import { ActionType, AppStateType } from 'redux/redux-store'
 import { connect } from 'react-redux';
-import { InitialStateDialogsType } from 'redux/dialogs-reducer';
+import { InitialStateDialogsType, changedNewMessageAC, sendMessageAC } from 'redux/dialogs-reducer';
 
 type MapStatePropsType = {
 	dialogsPage: InitialStateDialogsType
