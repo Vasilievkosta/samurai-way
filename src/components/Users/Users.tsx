@@ -1,36 +1,62 @@
 import React from 'react'
-import { UsersPropsType } from './UsersContainer'
 import s from './Users.module.css'
-import axios, { AxiosResponse } from 'axios'
-import { ResponseGetUserType, ResponseItemType } from 'redux/users-reducer'
+import { ResponseItemType } from 'redux/users-reducer'
+import { NavLink } from 'react-router-dom'
+import fotoGirl from '../../photo/avaGirl-1.jpg'
 
-const Users = (props: UsersPropsType) => {
-    if (props.users.length === 0) {
-        // props.setUsers([
-        // 	{ id: '1', photoURL: 'https://img.freepik.com/free-photo/waist-up-portrait-of-handsome-serious-unshaven-male-keeps-hands-together-dressed-in-dark-blue-shirt-has-talk-with-interlocutor-stands-against-white-wall-self-confident-man-freelancer_273609-16320.jpg?size=626&ext=jpg&ga=GA1.2.1895128746.1689229530&semt=sph', followed: false, fullName: 'Dimych', status: 'I am a boss', location: { city: 'Minsk', country: 'Belarus' } },
-        // 	{ id: '2', photoURL: 'https://img.freepik.com/free-photo/medium-shot-man-with-afro-hairstyle_23-2150677170.jpg?size=626&ext=jpg&ga=GA1.2.1895128746.1689229530&semt=sph', followed: true, fullName: 'Alex', status: 'I am also a boss', location: { city: 'Moscow', country: 'Russia' } },
-        // 	{ id: '3', photoURL: 'https://img.freepik.com/free-photo/happy-bearded-young-man-looks-with-joyful-expression-has-friendly-smile-wears-yellow-sweater-and-red-hat_295783-1388.jpg?size=626&ext=jpg&ga=GA1.2.1895128746.1689229530&semt=sph', followed: false, fullName: 'Andrew', status: 'I am a Hugo-boss', location: { city: 'Kiev', country: 'Ukraine' } },
-        // ])
-        axios.get<ResponseGetUserType>('https://social-network.samuraijs.com/api/1.0/users').then((res) => {
-            props.setUsers(res.data.items)
-        })
+type PropsType = {
+    totalCount: number
+    pageSize: number
+    currentPage: number
+    follow: (id: number | string) => void
+    unfollow: (id: number | string) => void
+    onPageChange: (id: number) => void
+    users: ResponseItemType[]
+}
+
+const Users = (props: PropsType) => {
+    let pagesCount = Math.ceil(props.totalCount / props.pageSize / 50)
+
+    let pages = []
+    for (let i = 1; i <= pagesCount; i++) {
+        pages.push(i)
     }
 
     return (
         <div>
+            <p>{props.totalCount}</p>
+            <span>{pagesCount * 50}</span>
+            <p>{props.currentPage}</p>
+
+            <div className={s.count}>
+                {pages.map((p) => {
+                    return (
+                        <span
+                            className={props.currentPage === p ? s.selectedPage : ''}
+                            onClick={() => props.onPageChange(p)}
+                        >
+                            {p}
+                        </span>
+                    )
+                })}
+            </div>
             <ul className={s.list}>
                 {props.users.map((u) => {
                     return (
                         <li className={s.item} key={u.id}>
                             <div className={s.follow}>
-                                <img
-                                    className={s.photo}
-                                    src={
-                                        u.photos.small
-                                            ? u.photos.small
-                                            : 'https://img.freepik.com/free-photo/medium-shot-man-with-afro-hairstyle_23-2150677170.jpg?size=626&ext=jpg&ga=GA1.2.1895128746.1689229530&semt=sph'
-                                    }
-                                />
+                                <NavLink to={'/profile/' + u.id}>
+                                    <img
+                                        className={s.photo}
+                                        src={
+                                            u.photos.small
+                                                ? u.photos.small
+                                                : // 'https://img.freepik.com/free-photo/medium-shot-man-with-afro-hairstyle_23-2150677170.jpg?size=626&ext=jpg&ga=GA1.2.1895128746.1689229530&semt=sph'
+                                                  fotoGirl
+                                        }
+                                    />
+                                </NavLink>
+
                                 {u.followed ? (
                                     <button onClick={() => props.unfollow(u.id)}>unfollow</button>
                                 ) : (
