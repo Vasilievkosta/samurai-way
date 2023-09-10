@@ -2,11 +2,13 @@ import { combineReducers, createStore } from 'redux'
 import profileReducer, { addPostAC, changedTextPostAC, setProfile } from './profile-reducer'
 import dialogsReducer, { changedNewMessageAC, sendMessageAC } from './dialogs-reducer'
 import usersReducer, { follow, setCurrentPage, setIsFetching, setTotalCount, setUsers, unfollow } from './users-reducer'
+import authReducer, { setAuthUserData } from './auth-reducer'
 
 export const rootReducer = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
     usersPage: usersReducer,
+    auth: authReducer,
 })
 
 export type AppStateType = ReturnType<typeof rootReducer>
@@ -25,5 +27,7 @@ export type ActionType =
     | ReturnType<typeof setTotalCount>
     | ReturnType<typeof setCurrentPage>
     | ReturnType<typeof setIsFetching>
+    | ReturnType<typeof setAuthUserData>
+
 // @ts-ignore
 window.store = store
