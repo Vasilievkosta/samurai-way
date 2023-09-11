@@ -3,6 +3,7 @@ import s from './Users.module.css'
 import { ResponseItemType } from 'redux/users-reducer'
 import { NavLink } from 'react-router-dom'
 import fotoGirl from '../../photo/avaGirl-1.jpg'
+import { deleteFollow, postFollow } from 'api/api'
 
 type PropsType = {
     totalCount: number
@@ -12,6 +13,12 @@ type PropsType = {
     unfollow: (id: number | string) => void
     onPageChange: (id: number) => void
     users: ResponseItemType[]
+}
+
+export type ResponseFollowType = {
+    resultCode: number
+    messages: string[]
+    data: {}
 }
 
 const Users = (props: PropsType) => {
@@ -48,19 +55,35 @@ const Users = (props: PropsType) => {
                                 <NavLink to={'/profile/' + u.id}>
                                     <img
                                         className={s.photo}
-                                        src={
-                                            u.photos.small
-                                                ? u.photos.small
-                                                : // 'https://img.freepik.com/free-photo/medium-shot-man-with-afro-hairstyle_23-2150677170.jpg?size=626&ext=jpg&ga=GA1.2.1895128746.1689229530&semt=sph'
-                                                  fotoGirl
-                                        }
+                                        src={u.photos.small ? u.photos.small : fotoGirl}
+                                        alt="foto"
                                     />
                                 </NavLink>
 
                                 {u.followed ? (
-                                    <button onClick={() => props.unfollow(u.id)}>unfollow</button>
+                                    <button
+                                        onClick={() => {
+                                            deleteFollow(u.id).then((data) => {
+                                                if (data.resultCode === 0) {
+                                                    props.unfollow(u.id)
+                                                }
+                                            })
+                                        }}
+                                    >
+                                        unfollow
+                                    </button>
                                 ) : (
-                                    <button onClick={() => props.follow(u.id)}>follow</button>
+                                    <button
+                                        onClick={() => {
+                                            postFollow(u.id).then((data) => {
+                                                if (data.resultCode === 0) {
+                                                    props.follow(u.id)
+                                                }
+                                            })
+                                        }}
+                                    >
+                                        follow
+                                    </button>
                                 )}
                             </div>
                             <div className={s.description}>

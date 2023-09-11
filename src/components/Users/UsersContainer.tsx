@@ -1,10 +1,7 @@
 import React from 'react'
-import axios, { AxiosResponse } from 'axios'
-
 import { connect } from 'react-redux'
-import { ActionType, AppStateType } from 'redux/redux-store'
+import { AppStateType } from 'redux/redux-store'
 import {
-    ResponseGetUserType,
     ResponseItemType,
     follow,
     setCurrentPage,
@@ -15,35 +12,27 @@ import {
 } from 'redux/users-reducer'
 import Users from './Users'
 import Preloader from 'components/common/Preloader/Preloader'
+import { getUsers } from 'api/api'
 
 class UsersContainer extends React.Component<UsersPropsType> {
     componentDidMount() {
         this.props.setIsFetching(true)
-        axios
-            .get<ResponseGetUserType>(
-                `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`
-            )
-            .then((res) => {
-                this.props.setUsers(res.data.items)
-                this.props.setTotalCount(res.data.totalCount)
-                this.props.setIsFetching(false)
-            })
+
+        getUsers(this.props.currentPage, this.props.pageSize).then((data) => {
+            this.props.setUsers(data.items)
+            this.props.setTotalCount(data.totalCount)
+            this.props.setIsFetching(false)
+        })
     }
 
     onPageChange = (pageNumber: number): void => {
         this.props.setCurrentPage(pageNumber)
         this.props.setIsFetching(true)
-        axios
-            .get<ResponseGetUserType>(
-                `https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber * 20}&count=${
-                    this.props.pageSize
-                }`
-            )
-            .then((res) => {
-                this.props.setUsers(res.data.items)
-                this.props.setIsFetching(false)
-                console.log(res.data.items)
-            })
+
+        getUsers(pageNumber * 20, this.props.pageSize).then((data) => {
+            this.props.setUsers(data.items)
+            this.props.setIsFetching(false)
+        })
     }
 
     render() {

@@ -1,7 +1,7 @@
 import { ActionType } from './redux-store'
 
 const initialState = {
-    resultCode: 1,
+    resultCode: 0,
     messages: [],
     data: {
         id: 2,
