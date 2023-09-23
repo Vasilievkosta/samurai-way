@@ -8,6 +8,7 @@ import { getMe } from 'api/api'
 class HeaderContainer extends React.Component<PropsType> {
     componentDidMount() {
         getMe().then((data) => {
+            console.log(data)
             if (data.resultCode === 0) {
                 this.props.setAuthUserData(data.data)
             }

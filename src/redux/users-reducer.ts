@@ -1,4 +1,6 @@
+import { deleteFollow, getUsers, postFollow } from 'api/api'
 import { ActionType } from './redux-store'
+import { Dispatch } from 'redux'
 
 const initialState = {
     users: [] as ResponseItemType[],
@@ -6,6 +8,7 @@ const initialState = {
     pageSize: 20,
     currentPage: 2,
     isFetching: false,
+    followingInProgress: [] as any,
 }
 
 export type InitialStateUsersType = typeof initialState
@@ -42,8 +45,17 @@ const usersReducer = (state = initialState, action: ActionType): InitialStateUse
 
         case 'SET-CURRENT-PAGE':
             return { ...state, currentPage: action.currentPage }
+
         case 'SET-IS-FETCHING':
             return { ...state, isFetching: action.isFetching }
+
+        case 'SET-FOLLOWING-PROGRESS':
+            return {
+                ...state,
+                followingInProgress: action.isFetching
+                    ? [...state.followingInProgress, action.id]
+                    : [state.followingInProgress.filter((id: number) => id != action.id)],
+            }
 
         default:
             return state
@@ -61,6 +73,47 @@ export const setTotalCount = (totalCount: number) => ({ type: 'SET-COUNT', total
 export const setCurrentPage = (currentPage: number) => ({ type: 'SET-CURRENT-PAGE', currentPage } as const)
 
 export const setIsFetching = (isFetching: boolean) => ({ type: 'SET-IS-FETCHING', isFetching } as const)
+
+export const setFollowingInProgress = (isFetching: boolean, id: number) =>
+    ({ type: 'SET-FOLLOWING-PROGRESS', isFetching, id } as const)
+
+export const getUsersTC = (currentPage: number, pageSize: number) => {
+    return (dispatch: ThunkDispatch) => {
+        dispatch(setIsFetching(true))
+
+        getUsers(currentPage, pageSize).then((data) => {
+            dispatch(setUsers(data.items))
+            dispatch(setTotalCount(data.totalCount))
+            dispatch(setIsFetching(false))
+        })
+    }
+}
+
+export const unfollowTC = (userId: number) => {
+    return (dispatch: ThunkDispatch) => {
+        dispatch(setFollowingInProgress(true, userId))
+
+        deleteFollow(userId).then((data) => {
+            if (data.resultCode === 0) {
+                dispatch(unfollow(userId))
+                dispatch(setFollowingInProgress(false, userId))
+            }
+        })
+    }
+}
+
+export const followTC = (userId: number) => {
+    return (dispatch: ThunkDispatch) => {
+        dispatch(setFollowingInProgress(true, userId))
+
+        postFollow(userId).then((data) => {
+            if (data.resultCode === 0) {
+                dispatch(follow(userId))
+                dispatch(setFollowingInProgress(false, userId))
+            }
+        })
+    }
+}
 
 export default usersReducer
 
@@ -80,3 +133,5 @@ export type ResponseItemType = {
     status: null
     followed: boolean
 }
+
+type ThunkDispatch = Dispatch<ActionType>

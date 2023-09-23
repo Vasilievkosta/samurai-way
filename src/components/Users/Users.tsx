@@ -3,16 +3,16 @@ import s from './Users.module.css'
 import { ResponseItemType } from 'redux/users-reducer'
 import { NavLink } from 'react-router-dom'
 import fotoGirl from '../../photo/avaGirl-1.jpg'
-import { deleteFollow, postFollow } from 'api/api'
 
 type PropsType = {
     totalCount: number
     pageSize: number
     currentPage: number
-    follow: (id: number | string) => void
-    unfollow: (id: number | string) => void
     onPageChange: (id: number) => void
     users: ResponseItemType[]
+    followingInProgress: Array<number>
+    followTC: (id: number) => any
+    unfollowTC: (id: number) => any
 }
 
 export type ResponseFollowType = {
@@ -39,6 +39,7 @@ const Users = (props: PropsType) => {
                 {pages.map((p) => {
                     return (
                         <span
+                            key={p}
                             className={props.currentPage === p ? s.selectedPage : ''}
                             onClick={() => props.onPageChange(p)}
                         >
@@ -62,24 +63,19 @@ const Users = (props: PropsType) => {
 
                                 {u.followed ? (
                                     <button
+                                        disabled={props.followingInProgress.some((id) => id === u.id)}
                                         onClick={() => {
-                                            deleteFollow(u.id).then((data) => {
-                                                if (data.resultCode === 0) {
-                                                    props.unfollow(u.id)
-                                                }
-                                            })
+                                            props.unfollowTC(u.id)
                                         }}
                                     >
                                         unfollow
                                     </button>
                                 ) : (
                                     <button
+                                        disabled={props.followingInProgress.some((id) => id === u.id)}
                                         onClick={() => {
-                                            postFollow(u.id).then((data) => {
-                                                if (data.resultCode === 0) {
-                                                    props.follow(u.id)
-                                                }
-                                            })
+                                            console.log(u.id)
+                                            props.followTC(u.id)
                                         }}
                                     >
                                         follow

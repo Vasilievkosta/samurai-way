@@ -3,19 +3,11 @@ import { BrowserRouter, Route } from 'react-router-dom'
 import Navbar from './components/Navbar/Navbar'
 import HeaderContainer from 'components/Header/HeaderContainer'
 import Music from 'components/Music/Music'
+import News from 'components/News/News'
 import DialogsContainer from 'components/Dialogs/DialogsContainer'
 import UsersContainer from 'components/Users/UsersContainer'
 import ProfileContainer from 'components/Profile/ProfileContainer'
-
-// export type RootStateType = {
-//   profilePage: ProfileStateType
-//   dialogsPage: DialogsStateType
-// }
-
-// export type PropsType = {
-//   state: RootStateType
-//   dispatch: (action: ActionType) => void
-// }
+import Login from 'components/Login/Login'
 
 const App = () => {
     return (
@@ -29,10 +21,13 @@ const App = () => {
 
                     <Route path="/dialogs" render={() => <DialogsContainer />} />
 
+                    <Route path="/users" render={() => <UsersContainer />} />
+
+                    <Route path="/news" component={News} />
                     <Route path="/music" component={Music} />
-                    <Route path="/news" component={Music} />
                     <Route path="/settings" component={Music} />
-                    <Route path="/users" component={UsersContainer} />
+
+                    <Route path="/login" component={Login} />
                 </div>
             </div>
         </BrowserRouter>

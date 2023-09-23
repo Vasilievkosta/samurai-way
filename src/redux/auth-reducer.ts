@@ -1,7 +1,7 @@
 import { ActionType } from './redux-store'
 
 const initialState = {
-    resultCode: 0,
+    resultCode: 1,
     messages: [],
     data: {
         id: 2,
@@ -15,7 +15,7 @@ export type InitialStateAuthType = typeof initialState
 const authReducer = (state = initialState, action: ActionType): InitialStateAuthType => {
     switch (action.type) {
         case 'SET-AUTH-USER':
-            return { ...state, data: action.data }
+            return { ...state, data: action.data, resultCode: 0 }
 
         default:
             return state

@@ -3,6 +3,7 @@ import { ChangeEvent } from 'react'
 import { DialogItem } from './DialogItem'
 import { MessageItem } from './MessageItem'
 import { DialogsType } from './DialogsContainer'
+import { Redirect } from 'react-router-dom'
 
 const Dialogs = (props: DialogsType) => {
     const callbackChangeMessage = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -11,6 +12,8 @@ const Dialogs = (props: DialogsType) => {
     const callbackSendMessage = () => {
         props.sendMessageHandler()
     }
+
+    if (props.resultCode === 1) return <Redirect to={'/login'} />
     return (
         <div className={s.wrap}>
             <div className={s.dialogs}>

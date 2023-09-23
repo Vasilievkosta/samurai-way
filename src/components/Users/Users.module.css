@@ -1,3 +1,7 @@
+.count {
+    display: flex;
+    flex-wrap: wrap;
+}
 .count span {
     padding: 2px;
     margin: 2px;
