@@ -13,7 +13,7 @@ const Dialogs = (props: DialogsType) => {
         props.sendMessageHandler()
     }
 
-    if (props.resultCode === 1) return <Redirect to={'/login'} />
+    // if (props.resultCode === 1) return <Redirect to={'/login'} />
     return (
         <div className={s.wrap}>
             <div className={s.dialogs}>

@@ -3,10 +3,11 @@ import Dialogs from './Dialogs'
 import { ActionType, AppStateType } from 'redux/redux-store'
 import { connect } from 'react-redux'
 import { InitialStateDialogsType, changedNewMessageAC, sendMessageAC } from 'redux/dialogs-reducer'
+import { withAuthRedirect } from 'hoc/withAuthRedirect'
+import { compose } from 'redux'
 
 type MapStatePropsType = {
     dialogsPage: InitialStateDialogsType
-    resultCode: number
 }
 
 type MapDispatchPropsType = {
@@ -19,7 +20,6 @@ export type DialogsType = MapStatePropsType & MapDispatchPropsType
 let mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
         dialogsPage: state.dialogsPage,
-        resultCode: state.auth.resultCode,
     }
 }
 
@@ -34,6 +34,4 @@ let mapDispatchToProps = (dispatch: (action: ActionType) => void): MapDispatchPr
     }
 }
 
-const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
-
-export default DialogsContainer
+export default compose<React.ComponentType>(connect(mapStateToProps, mapDispatchToProps), withAuthRedirect)(Dialogs)
