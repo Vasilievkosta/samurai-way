@@ -54,7 +54,7 @@ const usersReducer = (state = initialState, action: ActionType): InitialStateUse
                 ...state,
                 followingInProgress: action.isFetching
                     ? [...state.followingInProgress, action.id]
-                    : [state.followingInProgress.filter((id: number) => id != action.id)],
+                    : [state.followingInProgress.filter((id: number) => id !== action.id)],
             }
 
         default:
@@ -134,4 +134,4 @@ export type ResponseItemType = {
     followed: boolean
 }
 
-type ThunkDispatch = Dispatch<ActionType>
+export type ThunkDispatch = Dispatch<ActionType>

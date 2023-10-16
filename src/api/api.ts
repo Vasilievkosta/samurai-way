@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios'
 import { ResponseFollowType } from 'components/Users/Users'
 import { ResponseAuthType } from 'redux/auth-reducer'
-import { ResponseGetProfileType } from 'redux/profile-reducer'
+import { ResponseGetProfileType, ResponseStatusType } from 'redux/profile-reducer'
 import { ResponseGetUserType } from 'redux/users-reducer'
 
 const instance = axios.create({
@@ -22,6 +22,18 @@ export const getUsers = (currentPage: number, pageSize: number): Promise<Respons
 
 export const getProfile = (userId: string): Promise<ResponseGetProfileType> => {
     return instance.get(`profile/${userId}`).then((res: AxiosResponse<ResponseGetProfileType>) => {
+        return res.data
+    })
+}
+
+export const getUserStatus = (userId: string): Promise<string> => {
+    return instance.get(`profile/status/${userId}`).then((res: AxiosResponse<string>) => {
+        return res.data
+    })
+}
+
+export const updateUserStatus = (status: string): Promise<ResponseStatusType> => {
+    return instance.put(`profile/status`, { status: status }).then((res: AxiosResponse<ResponseStatusType>) => {
         return res.data
     })
 }

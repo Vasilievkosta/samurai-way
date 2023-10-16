@@ -2,6 +2,7 @@ import Preloader from 'components/common/Preloader/Preloader'
 import { PropsType } from '../Profile'
 import s from './ProfileInfo.module.css'
 import fotoGirl from '../../../photo/avaGirl-1.jpg'
+import ProfileStatus from './ProfileStatus'
 
 const ProfileInfo = (props: PropsType) => {
     if (!props.profile) {
@@ -15,6 +16,7 @@ const ProfileInfo = (props: PropsType) => {
                     alt="foto"
                 />
             </div>
+            <ProfileStatus status={props.status} updateStatus={props.updateStatus} />
             <div className="description">
                 <img src={props.profile?.photos.large ? props.profile.photos.large : fotoGirl} alt="Profile" />
                 <p>{props.profile.fullName}</p>
