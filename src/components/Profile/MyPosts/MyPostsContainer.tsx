@@ -1,36 +1,32 @@
-import { InitialStateProfileType, addPostAC, changedTextPostAC } from 'redux/profile-reducer'
+import { InitialStateProfileType, addPostAC } from 'redux/profile-reducer'
 import { ActionType, AppStateType } from 'redux/redux-store'
 import MyPosts from './MyPosts'
-import { connect } from 'react-redux';
+import { connect } from 'react-redux'
 
 type MapStatePropsType = {
-	profilePage: InitialStateProfileType
+    profilePage: InitialStateProfileType
 }
 
 type MapDispatchPropsType = {
-	handleMessageChange: (text: string | undefined) => void
-	handleButtonClick: () => void
+    handleButtonClick: (post: string) => void
 }
 
 export type MyPostType = MapStatePropsType & MapDispatchPropsType
 
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {
-	return {
-		profilePage: state.profilePage
-	}
+    return {
+        profilePage: state.profilePage,
+    }
 }
 
 const mapDispatchToProps = (dispatch: (action: ActionType) => void): MapDispatchPropsType => {
-	return {
-		handleMessageChange: (text: string | undefined) => {
-			dispatch(changedTextPostAC(text))
-		},
-		handleButtonClick: () => {
-			dispatch(addPostAC())
-		}
-	}
+    return {
+        handleButtonClick: (post: string) => {
+            dispatch(addPostAC(post))
+        },
+    }
 }
 
 const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)
 
-export default MyPostsContainer;
+export default MyPostsContainer

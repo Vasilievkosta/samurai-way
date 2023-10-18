@@ -44,6 +44,18 @@ export const getMe = (): Promise<ResponseAuthType> => {
     })
 }
 
+export const login = (email: string, password: string, rememberMe: boolean): Promise<ResponseAuthType> => {
+    return instance.post(`auth/login`, { email, password, rememberMe }).then((res: AxiosResponse<ResponseAuthType>) => {
+        return res.data
+    })
+}
+
+export const logout = (): Promise<ResponseAuthType> => {
+    return instance.delete(`auth/login`).then((res: AxiosResponse<ResponseAuthType>) => {
+        return res.data
+    })
+}
+
 export const postFollow = (id: number): Promise<ResponseFollowType> => {
     return instance.post(`follow/${id}`).then((res: AxiosResponse<ResponseFollowType>) => {
         return res.data

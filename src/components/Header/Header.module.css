@@ -1,10 +1,12 @@
 .header {
     grid-area: h;
-    background-color: lightslategray;
-    padding: 5px;
+    background-color: #4d75a3;
+    /* padding: 5px; */
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin: 70px 0 30px;
+    border-radius: 9px;
 }
 
 .header img {
@@ -13,4 +15,32 @@
 
 .login {
     color: #fff;
+    display: flex;
+    align-items: center;
+}
+
+.loginName {
+    margin-right: 15px;
+}
+
+.btnLogout {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    line-height: 1;
+    border-left: 1px solid #e9e8e4;
+    padding: 20px;
+    border-radius: 0 9px 9px 0;
+    transition: background-color 0.3s;
+}
+.btnLogout:hover {
+    background-color: #365375;
+}
+.btnLogout svg {
+    fill: none;
+    stroke: #e9e8e4;
+    transition: stroke 0.3s;
+}
+.btnLogout:hover svg {
+    stroke: #fff;
 }

@@ -2,8 +2,8 @@ import { AnyAction, applyMiddleware, combineReducers, createStore } from 'redux'
 import thunkMiddleware, { ThunkDispatch } from 'redux-thunk'
 import { useDispatch } from 'react-redux'
 
-import profileReducer, { addPostAC, changedTextPostAC, setStatus, setProfile } from './profile-reducer'
-import dialogsReducer, { changedNewMessageAC, sendMessageAC } from './dialogs-reducer'
+import profileReducer, { addPostAC, setStatus, setProfile } from './profile-reducer'
+import dialogsReducer, { sendMessageAC } from './dialogs-reducer'
 import usersReducer, {
     follow,
     setCurrentPage,
@@ -14,13 +14,15 @@ import usersReducer, {
     unfollow,
 } from './users-reducer'
 
-import authReducer, { setAuthUserData } from './auth-reducer'
+import authReducer, { setAuthUserData, setLogout } from './auth-reducer'
+import { reducer as formReducer } from 'redux-form'
 
 export const rootReducer = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
     usersPage: usersReducer,
     auth: authReducer,
+    form: formReducer,
 })
 
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
@@ -32,10 +34,8 @@ export const useAppDispatch = () => useDispatch<AppThunkDispatch>()
 
 export type ActionType =
     | ReturnType<typeof addPostAC>
-    | ReturnType<typeof changedTextPostAC>
     | ReturnType<typeof setProfile>
     | ReturnType<typeof setStatus>
-    | ReturnType<typeof changedNewMessageAC>
     | ReturnType<typeof sendMessageAC>
     | ReturnType<typeof follow>
     | ReturnType<typeof unfollow>
@@ -45,6 +45,7 @@ export type ActionType =
     | ReturnType<typeof setIsFetching>
     | ReturnType<typeof setFollowingInProgress>
     | ReturnType<typeof setAuthUserData>
+    | ReturnType<typeof setLogout>
 
 // @ts-ignore
 window.store = store

@@ -1,11 +1,10 @@
 import { PostType } from 'components/Profile/MyPosts/Post/Post'
 import { ActionType } from './redux-store'
 import { updateUserStatus } from 'api/api'
-import { ThunkDispatch } from './users-reducer'
+import { Dispatch } from 'redux'
 
 export type InitialStateProfileType = {
     posts: PostType[]
-    newPostText: string | undefined
     profile: ResponseGetProfileType
     status: string
 }
@@ -37,7 +36,6 @@ const initialState = {
         { id: '2', message: 'Welcome!', like: 10 },
         { id: '3', message: 'Blabla', like: 11 },
     ],
-    newPostText: 'react.js',
     profile: initialResponseGetProfile,
     status: 'my status!',
 }
@@ -47,17 +45,13 @@ const profileReducer = (state: InitialStateProfileType = initialState, action: A
         case 'ADD-POST':
             let newPost: PostType = {
                 id: String(new Date().getTime()),
-                message: state.newPostText,
+                message: action.newText,
                 like: 0,
             }
             return {
                 ...state,
                 posts: [...state.posts, newPost],
-                newPostText: '',
             }
-
-        case 'CHANGE-TEXT-POST':
-            return { ...state, newPostText: action.newText }
 
         case 'SET-PROFILE':
             return { ...state, profile: action.profile }
@@ -70,11 +64,9 @@ const profileReducer = (state: InitialStateProfileType = initialState, action: A
     }
 }
 
-export const addPostAC = () => ({ type: 'ADD-POST' } as const)
-
-export const changedTextPostAC = (newText: string | undefined) => {
+export const addPostAC = (newText: string) => {
     return {
-        type: 'CHANGE-TEXT-POST',
+        type: 'ADD-POST',
         newText: newText,
     } as const
 }
@@ -94,7 +86,7 @@ export const setStatus = (status: string) => {
 }
 
 export const updateStatusTC = (status: string) => {
-    return (dispatch: ThunkDispatch) => {
+    return (dispatch: Dispatch<ActionType>) => {
         updateUserStatus(status).then((data) => {
             if (data.resultCode === 0) {
                 dispatch(setStatus(status))

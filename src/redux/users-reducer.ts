@@ -78,7 +78,7 @@ export const setFollowingInProgress = (isFetching: boolean, id: number) =>
     ({ type: 'SET-FOLLOWING-PROGRESS', isFetching, id } as const)
 
 export const getUsersTC = (currentPage: number, pageSize: number) => {
-    return (dispatch: ThunkDispatch) => {
+    return (dispatch: Dispatch<ActionType>) => {
         dispatch(setIsFetching(true))
 
         getUsers(currentPage, pageSize).then((data) => {
@@ -90,7 +90,7 @@ export const getUsersTC = (currentPage: number, pageSize: number) => {
 }
 
 export const unfollowTC = (userId: number) => {
-    return (dispatch: ThunkDispatch) => {
+    return (dispatch: Dispatch<ActionType>) => {
         dispatch(setFollowingInProgress(true, userId))
 
         deleteFollow(userId).then((data) => {
@@ -103,7 +103,7 @@ export const unfollowTC = (userId: number) => {
 }
 
 export const followTC = (userId: number) => {
-    return (dispatch: ThunkDispatch) => {
+    return (dispatch: Dispatch<ActionType>) => {
         dispatch(setFollowingInProgress(true, userId))
 
         postFollow(userId).then((data) => {
@@ -133,5 +133,3 @@ export type ResponseItemType = {
     status: null
     followed: boolean
 }
-
-export type ThunkDispatch = Dispatch<ActionType>

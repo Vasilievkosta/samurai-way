@@ -5,7 +5,6 @@ import { ActionType } from './redux-store'
 export type InitialStateDialogsType = {
     dialogs: DialogType[]
     messages: MessageType[]
-    newMessageBody: string
 }
 
 const initialState = {
@@ -21,8 +20,6 @@ const initialState = {
         { id: '2', message: 'Welcome!!' },
         { id: '3', message: 'How are you?' },
     ],
-
-    newMessageBody: '',
 }
 
 const dialogsReducer = (state: InitialStateDialogsType = initialState, action: ActionType): InitialStateDialogsType => {
@@ -30,29 +27,20 @@ const dialogsReducer = (state: InitialStateDialogsType = initialState, action: A
         case 'SEND-MESSAGE':
             let newMessage = {
                 id: String(new Date().getTime()),
-                message: state.newMessageBody,
+                message: action.newMessage,
             }
             return {
                 ...state,
                 messages: [...state.messages, newMessage],
-                newMessageBody: '',
             }
-
-        case 'CHANGE-NEW-MESSAGE':
-            return { ...state, newMessageBody: action.newMessage }
 
         default:
             return state
     }
 }
 
-export const sendMessageAC = () => ({ type: 'SEND-MESSAGE' } as const)
-
-export const changedNewMessageAC = (newMessage: string) => {
-    return {
-        type: 'CHANGE-NEW-MESSAGE',
-        newMessage: newMessage,
-    } as const
+export const sendMessageAC = (newMessage: string) => {
+    return { type: 'SEND-MESSAGE', newMessage: newMessage } as const
 }
 
 export default dialogsReducer

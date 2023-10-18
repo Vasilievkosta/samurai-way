@@ -1,22 +1,29 @@
 import React from 'react'
 import s from './Header.module.css'
+import sprite from 'assets/images/sprite.svg'
 import imageLogo from '../../photo/rotation.png'
 import { NavLink } from 'react-router-dom'
-import { AuthDataType, ResponseAuthType } from 'redux/auth-reducer'
+import { HeaderPropsType } from './HeaderContainer'
 
-type PropsType = {
-    dataAuth: ResponseAuthType
-    setAuthUserData: (data: AuthDataType) => void
-}
-
-const Header = (props: PropsType) => {
-    console.log(props)
+const Header = (props: HeaderPropsType) => {
     return (
         <header className={s.header}>
             <img src={imageLogo} alt="logo" />
 
-            <div className={s.login}>
-                {props.dataAuth.resultCode === 0 ? props.dataAuth.data.login : <NavLink to={'/login'}>Login</NavLink>}
+            <div>
+                {props.dataAuth.resultCode === 0 ? (
+                    <div className={s.login}>
+                        <p className={s.loginName}>{props.dataAuth.data.login}</p>
+
+                        <button className={s.btnLogout} onClick={props.logoutTC}>
+                            <svg width="32px" height="32px">
+                                <use xlinkHref={`${sprite}#logout`} />
+                            </svg>
+                        </button>
+                    </div>
+                ) : (
+                    <NavLink to={'/login'}>Login</NavLink>
+                )}
             </div>
         </header>
     )
