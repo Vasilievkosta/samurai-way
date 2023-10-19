@@ -2,6 +2,7 @@
     color: red;
 }
 
-.error textarea {
+.error textarea,
+.error input {
     border: 1px solid red;
 }

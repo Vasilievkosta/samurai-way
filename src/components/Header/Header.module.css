@@ -11,6 +11,7 @@
 
 .header img {
     max-width: 64px;
+    padding: 5px;
 }
 
 .login {
@@ -29,13 +30,11 @@
     cursor: pointer;
     line-height: 1;
     border-left: 1px solid #e9e8e4;
-    padding: 20px;
+    padding: 18px;
     border-radius: 0 9px 9px 0;
     transition: background-color 0.3s;
 }
-.btnLogout:hover {
-    background-color: #365375;
-}
+
 .btnLogout svg {
     fill: none;
     stroke: #e9e8e4;
@@ -43,4 +42,18 @@
 }
 .btnLogout:hover svg {
     stroke: #fff;
+}
+
+.link {
+    font-size: 20px;
+    color: #fff;
+    padding: 20px;
+    border-radius: 0 9px 9px 0;
+    border-left: 1px solid #e9e8e4;
+    transition: background-color 0.3s;
+}
+
+.btnLogout:hover,
+.link:hover {
+    background-color: #365375;
 }

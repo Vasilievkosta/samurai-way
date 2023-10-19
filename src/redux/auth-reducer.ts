@@ -1,6 +1,7 @@
 import { getMe, login, logout } from 'api/api'
 import { ActionType, AppThunkDispatch } from './redux-store'
 import { Dispatch } from 'redux'
+import { stopSubmit } from 'redux-form'
 
 const initialState = {
     resultCode: 1,
@@ -33,7 +34,7 @@ export const setLogout = () => ({ type: 'SET-LOGOUT' } as const)
 
 export const getAuthUserData = () => {
     return (dispatch: Dispatch<ActionType>) => {
-        getMe().then((data) => {
+        return getMe().then((data) => {
             if (data.resultCode === 0) {
                 dispatch(setAuthUserData(data.data))
             }
@@ -46,6 +47,10 @@ export const loginTC = (email: string, password: string, rememberMe: boolean) =>
         login(email, password, rememberMe).then((data) => {
             if (data.resultCode === 0) {
                 dispatch(getAuthUserData())
+            } else {
+                let message = data.messages.length > 0 ? data.messages[0] : 'Some error!'
+                let action = stopSubmit('login', { _error: message })
+                dispatch(action)
             }
         })
     }

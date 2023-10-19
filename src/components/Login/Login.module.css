@@ -2,3 +2,9 @@
     background-color: lightblue;
     color: lightcoral;
 }
+
+.loginError {
+    border: 1px solid red;
+    color: red;
+    padding: 3px;
+}

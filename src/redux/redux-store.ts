@@ -16,6 +16,7 @@ import usersReducer, {
 
 import authReducer, { setAuthUserData, setLogout } from './auth-reducer'
 import { reducer as formReducer } from 'redux-form'
+import appReducer, { initializedSuccess } from './app-reducer'
 
 export const rootReducer = combineReducers({
     profilePage: profileReducer,
@@ -23,6 +24,7 @@ export const rootReducer = combineReducers({
     usersPage: usersReducer,
     auth: authReducer,
     form: formReducer,
+    app: appReducer,
 })
 
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
@@ -46,6 +48,7 @@ export type ActionType =
     | ReturnType<typeof setFollowingInProgress>
     | ReturnType<typeof setAuthUserData>
     | ReturnType<typeof setLogout>
+    | ReturnType<typeof initializedSuccess>
 
 // @ts-ignore
 window.store = store

@@ -22,7 +22,9 @@ const Header = (props: HeaderPropsType) => {
                         </button>
                     </div>
                 ) : (
-                    <NavLink to={'/login'}>Login</NavLink>
+                    <NavLink to={'/login'}>
+                        <p className={s.link}>Login</p>
+                    </NavLink>
                 )}
             </div>
         </header>
