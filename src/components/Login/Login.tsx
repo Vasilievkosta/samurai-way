@@ -14,9 +14,9 @@ type FormDataType = {
     rememberMe: boolean
 }
 
-const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
+const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({ handleSubmit, error }) => {
     return (
-        <form onSubmit={props.handleSubmit}>
+        <form onSubmit={handleSubmit}>
             <div>
                 <Field
                     placeholder="E-mail"
@@ -39,7 +39,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
             <div>
                 <Field component={Element} elementType="input" name="rememberMe" type="checkbox" /> remember me
             </div>
-            {props.error && <span className={s.loginError}>{props.error}</span>}
+            {error && <span className={s.loginError}>{error}</span>}
             <div>
                 <button>Login</button>
             </div>

@@ -1,0 +1,18 @@
+.count {
+    display: flex;
+    flex-wrap: wrap;
+}
+.count span {
+    padding: 2px;
+    margin: 2px;
+    cursor: pointer;
+    border-bottom: 1px solid transparent;
+    transition: border-bottom-color 0.3s;
+}
+.count span:hover {
+    border-bottom-color: blueviolet;
+}
+
+.selectedPage {
+    font-weight: 700;
+}

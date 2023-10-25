@@ -4,16 +4,17 @@ import fotoGirl from '../../../photo/avaGirl-1.jpg'
 import ProfileStatus from './ProfileStatus'
 
 const ProfileInfo = (props: PropsType) => {
-    if (!props.profile) {
+    const { profile, status, updateStatus } = props
+    if (!profile) {
         return <Preloader />
     }
     return (
         <div>
-            <ProfileStatus status={props.status} updateStatus={props.updateStatus} />
+            <ProfileStatus status={status} updateStatus={updateStatus} />
 
             <div className="description">
-                <img src={props.profile?.photos.large ? props.profile.photos.large : fotoGirl} alt="Profile" />
-                <p>{props.profile.fullName}</p>
+                <img src={profile?.photos.large ? profile.photos.large : fotoGirl} alt="Profile" />
+                <p>{profile.fullName}</p>
             </div>
         </div>
     )

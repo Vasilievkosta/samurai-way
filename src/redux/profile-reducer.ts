@@ -86,12 +86,11 @@ export const setStatus = (status: string) => {
 }
 
 export const updateStatusTC = (status: string) => {
-    return (dispatch: Dispatch<ActionType>) => {
-        updateUserStatus(status).then((data) => {
-            if (data.resultCode === 0) {
-                dispatch(setStatus(status))
-            }
-        })
+    return async (dispatch: Dispatch<ActionType>) => {
+        let data = await updateUserStatus(status)
+        if (data.resultCode === 0) {
+            dispatch(setStatus(status))
+        }
     }
 }
 

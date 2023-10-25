@@ -3,6 +3,7 @@ import s from './Users.module.css'
 import { ResponseItemType } from 'redux/users-reducer'
 import { NavLink } from 'react-router-dom'
 import fotoGirl from '../../photo/avaGirl-1.jpg'
+import Paginator from 'components/Paginator/Paginator'
 
 type PropsType = {
     totalCount: number
@@ -22,32 +23,15 @@ export type ResponseFollowType = {
 }
 
 const Users = (props: PropsType) => {
-    let pagesCount = Math.ceil(props.totalCount / props.pageSize / 50)
-
-    let pages = []
-    for (let i = 1; i <= pagesCount; i++) {
-        pages.push(i)
-    }
-
     return (
         <div>
-            <p>{props.totalCount}</p>
-            <span>{pagesCount * 50}</span>
-            <p>{props.currentPage}</p>
+            <Paginator
+                totalCount={props.totalCount}
+                pageSize={props.pageSize}
+                currentPage={props.currentPage}
+                onPageChange={props.onPageChange}
+            />
 
-            <div className={s.count}>
-                {pages.map((p) => {
-                    return (
-                        <span
-                            key={p}
-                            className={props.currentPage === p ? s.selectedPage : ''}
-                            onClick={() => props.onPageChange(p)}
-                        >
-                            {p}
-                        </span>
-                    )
-                })}
-            </div>
             <ul className={s.list}>
                 {props.users.map((u) => {
                     return (

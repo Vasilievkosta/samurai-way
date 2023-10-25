@@ -5,8 +5,8 @@ import { Dispatch } from 'redux'
 const initialState = {
     users: [] as ResponseItemType[],
     totalCount: 0,
-    pageSize: 20,
-    currentPage: 2,
+    pageSize: 100,
+    currentPage: 1,
     isFetching: false,
     followingInProgress: [] as any,
 }
@@ -78,40 +78,37 @@ export const setFollowingInProgress = (isFetching: boolean, id: number) =>
     ({ type: 'SET-FOLLOWING-PROGRESS', isFetching, id } as const)
 
 export const getUsersTC = (currentPage: number, pageSize: number) => {
-    return (dispatch: Dispatch<ActionType>) => {
+    return async (dispatch: Dispatch<ActionType>) => {
         dispatch(setIsFetching(true))
 
-        getUsers(currentPage, pageSize).then((data) => {
-            dispatch(setUsers(data.items))
-            dispatch(setTotalCount(data.totalCount))
-            dispatch(setIsFetching(false))
-        })
+        let data = await getUsers(currentPage, pageSize)
+        dispatch(setUsers(data.items))
+        dispatch(setTotalCount(data.totalCount))
+        dispatch(setIsFetching(false))
     }
 }
 
 export const unfollowTC = (userId: number) => {
-    return (dispatch: Dispatch<ActionType>) => {
+    return async (dispatch: Dispatch<ActionType>) => {
         dispatch(setFollowingInProgress(true, userId))
 
-        deleteFollow(userId).then((data) => {
-            if (data.resultCode === 0) {
-                dispatch(unfollow(userId))
-                dispatch(setFollowingInProgress(false, userId))
-            }
-        })
+        let data = await deleteFollow(userId)
+        if (data.resultCode === 0) {
+            dispatch(unfollow(userId))
+            dispatch(setFollowingInProgress(false, userId))
+        }
     }
 }
 
 export const followTC = (userId: number) => {
-    return (dispatch: Dispatch<ActionType>) => {
+    return async (dispatch: Dispatch<ActionType>) => {
         dispatch(setFollowingInProgress(true, userId))
 
-        postFollow(userId).then((data) => {
-            if (data.resultCode === 0) {
-                dispatch(follow(userId))
-                dispatch(setFollowingInProgress(false, userId))
-            }
-        })
+        let data = await postFollow(userId)
+        if (data.resultCode === 0) {
+            dispatch(follow(userId))
+            dispatch(setFollowingInProgress(false, userId))
+        }
     }
 }
 

@@ -33,7 +33,7 @@ export const setAuthUserData = (data: AuthDataType) => ({ type: 'SET-AUTH-USER',
 export const setLogout = () => ({ type: 'SET-LOGOUT' } as const)
 
 export const getAuthUserData = () => {
-    return (dispatch: Dispatch<ActionType>) => {
+    return async (dispatch: Dispatch<ActionType>) => {
         return getMe().then((data) => {
             if (data.resultCode === 0) {
                 dispatch(setAuthUserData(data.data))
@@ -43,27 +43,27 @@ export const getAuthUserData = () => {
 }
 
 export const loginTC = (email: string, password: string, rememberMe: boolean) => {
-    return (dispatch: AppThunkDispatch) => {
-        login(email, password, rememberMe).then((data) => {
-            if (data.resultCode === 0) {
-                dispatch(getAuthUserData())
-            } else {
-                let message = data.messages.length > 0 ? data.messages[0] : 'Some error!'
-                let action = stopSubmit('login', { _error: message })
-                dispatch(action)
-            }
-        })
+    return async (dispatch: AppThunkDispatch) => {
+        let data = await login(email, password, rememberMe)
+
+        if (data.resultCode === 0) {
+            dispatch(getAuthUserData())
+        } else {
+            let message = data.messages.length > 0 ? data.messages[0] : 'Some error!'
+            let action = stopSubmit('login', { _error: message })
+            dispatch(action)
+        }
     }
 }
 
 export const logoutTC = () => {
-    return (dispatch: Dispatch<ActionType>) => {
-        logout().then((data) => {
-            if (data.resultCode === 0) {
-                dispatch(setAuthUserData(initialState.data))
-                dispatch(setLogout())
-            }
-        })
+    return async (dispatch: Dispatch<ActionType>) => {
+        let data = await logout()
+
+        if (data.resultCode === 0) {
+            dispatch(setAuthUserData(initialState.data))
+            dispatch(setLogout())
+        }
     }
 }
 
