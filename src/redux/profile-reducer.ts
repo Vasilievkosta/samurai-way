@@ -1,6 +1,6 @@
 import { PostType } from 'components/Profile/MyPosts/Post/Post'
 import { ActionType } from './redux-store'
-import { updateUserStatus } from 'api/api'
+import { saveUserPhoto, updateUserStatus } from 'api/api'
 import { Dispatch } from 'redux'
 
 export type InitialStateProfileType = {
@@ -59,6 +59,9 @@ const profileReducer = (state: InitialStateProfileType = initialState, action: A
         case 'SET-STATUS':
             return { ...state, status: action.status }
 
+        case 'SAVE-PHOTO':
+            return { ...state, profile: { ...state.profile, photos: action.photos } }
+
         default:
             return state
     }
@@ -85,11 +88,27 @@ export const setStatus = (status: string) => {
     } as const
 }
 
+export const savePhotoSuccess = (photos: { small: string | null; large: string | null }) => {
+    return {
+        type: 'SAVE-PHOTO',
+        photos: photos,
+    } as const
+}
+
 export const updateStatusTC = (status: string) => {
     return async (dispatch: Dispatch<ActionType>) => {
         let data = await updateUserStatus(status)
         if (data.resultCode === 0) {
             dispatch(setStatus(status))
+        }
+    }
+}
+
+export const savePhotoTC = (file: FileList | null) => {
+    return async (dispatch: Dispatch<ActionType>) => {
+        let data = await saveUserPhoto(file)
+        if (data.resultCode === 0) {
+            dispatch(savePhotoSuccess(data.data))
         }
     }
 }
@@ -121,4 +140,13 @@ export type ResponseStatusType = {
     resultCode: number
     messages: string[]
     data: {}
+}
+
+export type ResponsePhotosType = {
+    resultCode: number
+    messages: string[]
+    data: {
+        small: string | null
+        large: string | null
+    }
 }

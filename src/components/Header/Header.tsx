@@ -1,7 +1,7 @@
 import React from 'react'
 import s from './Header.module.css'
 import sprite from 'assets/images/sprite.svg'
-import imageLogo from '../../photo/rotation.png'
+import imageLogo from 'assets/photo/rotation.png'
 import { NavLink } from 'react-router-dom'
 import { HeaderPropsType } from './HeaderContainer'
 

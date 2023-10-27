@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios'
 import { ResponseFollowType } from 'components/Users/Users'
 import { ResponseAuthType } from 'redux/auth-reducer'
-import { ResponseGetProfileType, ResponseStatusType } from 'redux/profile-reducer'
+import { ResponseGetProfileType, ResponsePhotosType, ResponseStatusType } from 'redux/profile-reducer'
 import { ResponseGetUserType } from 'redux/users-reducer'
 
 const instance = axios.create({
@@ -36,6 +36,20 @@ export const updateUserStatus = (status: string): Promise<ResponseStatusType> =>
     return instance.put(`profile/status`, { status: status }).then((res: AxiosResponse<ResponseStatusType>) => {
         return res.data
     })
+}
+
+export const saveUserPhoto = (photoFile: any): Promise<ResponsePhotosType> => {
+    const formData = new FormData()
+    formData.append('image', photoFile)
+    return instance
+        .put(`profile/photo`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        })
+        .then((res: AxiosResponse<ResponsePhotosType>) => {
+            return res.data
+        })
 }
 
 export const getMe = (): Promise<ResponseAuthType> => {

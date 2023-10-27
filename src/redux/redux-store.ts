@@ -2,7 +2,7 @@ import { AnyAction, applyMiddleware, combineReducers, createStore } from 'redux'
 import thunkMiddleware, { ThunkDispatch } from 'redux-thunk'
 import { useDispatch } from 'react-redux'
 
-import profileReducer, { addPostAC, setStatus, setProfile } from './profile-reducer'
+import profileReducer, { addPostAC, setStatus, setProfile, savePhotoSuccess } from './profile-reducer'
 import dialogsReducer, { sendMessageAC } from './dialogs-reducer'
 import usersReducer, {
     follow,
@@ -38,6 +38,7 @@ export type ActionType =
     | ReturnType<typeof addPostAC>
     | ReturnType<typeof setProfile>
     | ReturnType<typeof setStatus>
+    | ReturnType<typeof savePhotoSuccess>
     | ReturnType<typeof sendMessageAC>
     | ReturnType<typeof follow>
     | ReturnType<typeof unfollow>
