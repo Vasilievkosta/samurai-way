@@ -12,8 +12,10 @@ import { initializeApp } from 'redux/app-reducer'
 import { AppStateType } from 'redux/redux-store'
 import Preloader from 'components/common/Preloader/Preloader'
 
+import ProfileContainer from 'components/Profile/ProfileContainer'
+
 const DialogsContainer = lazy(() => import('components/Dialogs/DialogsContainer'))
-const ProfileContainer = lazy(() => import('components/Profile/ProfileContainer'))
+// const ProfileContainer = lazy(() => import('components/Profile/ProfileContainer'))
 
 class App extends React.Component<PropsType> {
     componentDidMount() {

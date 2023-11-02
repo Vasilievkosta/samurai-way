@@ -1,4 +1,4 @@
-import { getMe, login, logout } from 'api/api'
+import { getCaptchaUrl, getMe, login, logout } from 'api/api'
 import { ActionType, AppThunkDispatch } from './redux-store'
 import { Dispatch } from 'redux'
 import { stopSubmit } from 'redux-form'
@@ -10,6 +10,9 @@ const initialState = {
         id: 2,
         email: 'blabla@bla.bla',
         login: 'samurai',
+    },
+    captcha: {
+        url: '',
     },
 }
 
@@ -23,6 +26,9 @@ const authReducer = (state = initialState, action: ActionType): InitialStateAuth
         case 'SET-LOGOUT':
             return { ...state, resultCode: 1 }
 
+        case 'GET-CAPTCHA':
+            return { ...state, captcha: { url: action.url } }
+
         default:
             return state
     }
@@ -31,6 +37,8 @@ const authReducer = (state = initialState, action: ActionType): InitialStateAuth
 export const setAuthUserData = (data: AuthDataType) => ({ type: 'SET-AUTH-USER', data } as const)
 
 export const setLogout = () => ({ type: 'SET-LOGOUT' } as const)
+
+export const getCaptchaSuccess = (url: string) => ({ type: 'GET-CAPTCHA', url } as const)
 
 export const getAuthUserData = () => {
     return async (dispatch: Dispatch<ActionType>) => {
@@ -42,13 +50,16 @@ export const getAuthUserData = () => {
     }
 }
 
-export const loginTC = (email: string, password: string, rememberMe: boolean) => {
+export const loginTC = (email: string, password: string, rememberMe: boolean, captcha: string) => {
     return async (dispatch: AppThunkDispatch) => {
-        let data = await login(email, password, rememberMe)
+        let data = await login(email, password, rememberMe, captcha)
 
         if (data.resultCode === 0) {
             dispatch(getAuthUserData())
         } else {
+            if (data.resultCode === 10) {
+                dispatch(getCaptchaTC())
+            }
             let message = data.messages.length > 0 ? data.messages[0] : 'Some error!'
             let action = stopSubmit('login', { _error: message })
             dispatch(action)
@@ -64,6 +75,13 @@ export const logoutTC = () => {
             dispatch(setAuthUserData(initialState.data))
             dispatch(setLogout())
         }
+    }
+}
+
+export const getCaptchaTC = () => {
+    return async (dispatch: Dispatch<ActionType>) => {
+        let data = await getCaptchaUrl()
+        dispatch(getCaptchaSuccess(data.url))
     }
 }
 

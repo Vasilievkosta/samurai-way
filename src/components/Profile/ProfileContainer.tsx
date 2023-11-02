@@ -1,10 +1,16 @@
 import React from 'react'
 import Profile from './Profile'
-import { ResponseGetProfileType, savePhotoTC, setProfile, setStatus, updateStatusTC } from 'redux/profile-reducer'
+import {
+    ResponseGetProfileType,
+    getProfileTC,
+    getStatusTC,
+    savePhotoTC,
+    saveProfileTC,
+    updateStatusTC,
+} from 'redux/profile-reducer'
 import { connect } from 'react-redux'
 import { AppStateType } from 'redux/redux-store'
 import { RouteComponentProps, withRouter } from 'react-router-dom'
-import { getProfile, getUserStatus } from 'api/api'
 import { compose } from 'redux'
 
 class ProfileContainer extends React.Component<PropsType> {
@@ -13,17 +19,12 @@ class ProfileContainer extends React.Component<PropsType> {
 
         if (!userId) {
             userId = String(this.props.authorizedUserId)
-
             if (userId === '2') {
                 this.props.history.push('/login')
             }
         }
-        getProfile(userId).then((data) => {
-            this.props.setProfile(data)
-        })
-        getUserStatus(userId).then((data) => {
-            this.props.setStatus(data)
-        })
+        this.props.getProfileTC(userId)
+        this.props.getStatusTC(userId)
     }
 
     componentDidMount() {
@@ -44,6 +45,7 @@ class ProfileContainer extends React.Component<PropsType> {
                 updateStatus={this.props.updateStatusTC}
                 isOwner={!this.props.match.params.userId}
                 savePhoto={this.props.savePhotoTC}
+                saveProfile={this.props.saveProfileTC}
             />
         )
     }
@@ -61,10 +63,11 @@ type MapStatePropsType = {
     isAuth: boolean
 }
 type MapDispatchPropsType = {
-    setProfile: (profile: ResponseGetProfileType) => void
-    setStatus: (userId: string) => void
+    getProfileTC: (userId: string) => void
+    getStatusTC: (userId: string) => void
     updateStatusTC: (status: string) => void
     savePhotoTC: (file: File) => void
+    saveProfileTC: (newProfile: ResponseGetProfileType) => void
 }
 type ProfilePropsType = MapStatePropsType & MapDispatchPropsType
 
@@ -78,7 +81,6 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
 }
 
 export default compose<React.ComponentType>(
-    connect(mapStateToProps, { setProfile, setStatus, updateStatusTC, savePhotoTC }),
-    // withAuthRedirect,
+    connect(mapStateToProps, { getProfileTC, getStatusTC, updateStatusTC, savePhotoTC, saveProfileTC }),
     withRouter
 )(ProfileContainer)

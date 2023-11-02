@@ -1,7 +1,10 @@
 import { PostType } from 'components/Profile/MyPosts/Post/Post'
-import { ActionType } from './redux-store'
-import { saveUserPhoto, updateUserStatus } from 'api/api'
+import { ActionType, AppStateType, AppThunkDispatch } from './redux-store'
+import { getProfile, getUserStatus, saveUserPhoto, updateProfile, updateUserStatus } from 'api/api'
 import { Dispatch } from 'redux'
+import { FormProfileDataType } from 'components/Profile/ProfileInfo/ProfileDataForm'
+import { ThunkDispatch } from 'redux-thunk'
+import { stopSubmit } from 'redux-form'
 
 export type InitialStateProfileType = {
     posts: PostType[]
@@ -11,6 +14,7 @@ export type InitialStateProfileType = {
 
 const initialResponseGetProfile = {
     userId: 2,
+    aboutMe: '',
     lookingForAJob: true,
     lookingForAJobDescription: '',
     fullName: '',
@@ -37,7 +41,7 @@ const initialState = {
         { id: '3', message: 'Blabla', like: 11 },
     ],
     profile: initialResponseGetProfile,
-    status: 'my status!',
+    status: 'first status!',
 }
 
 const profileReducer = (state: InitialStateProfileType = initialState, action: ActionType): InitialStateProfileType => {
@@ -60,7 +64,7 @@ const profileReducer = (state: InitialStateProfileType = initialState, action: A
             return { ...state, status: action.status }
 
         case 'SAVE-PHOTO':
-            return { ...state, profile: { ...state.profile, photos: action.photos } }
+            return { ...state, profile: { ...state.profile, photos: action.data.photos } }
 
         default:
             return state
@@ -88,25 +92,60 @@ export const setStatus = (status: string) => {
     } as const
 }
 
-export const savePhotoSuccess = (photos: { small: string | null; large: string | null }) => {
+export const savePhotoSuccess = (data: DataPhotoType) => {
     return {
         type: 'SAVE-PHOTO',
-        photos: photos,
+        data: data,
     } as const
+}
+
+export const saveProfileSuccess = (data: DataPhotoType) => {
+    return {
+        type: 'SAVE-PROFILE',
+        data: data,
+    } as const
+}
+
+export const getProfileTC = (userId: string) => {
+    return async (dispatch: Dispatch<ActionType>) => {
+        const data = await getProfile(userId)
+        dispatch(setProfile(data))
+    }
+}
+
+export const saveProfileTC = (newProfile: FormProfileDataType) => {
+    return async (dispatch: AppThunkDispatch, getState: any) => {
+        const userId = getState().auth.data.id
+        const data = await updateProfile(newProfile)
+        if (data.resultCode === 0) {
+            dispatch(getProfileTC(userId))
+        } else {
+            const action = stopSubmit('edit-profile', { _error: data.messages[0] })
+            dispatch(action)
+            return Promise.reject(data.messages[0])
+        }
+    }
+}
+
+export const getStatusTC = (userId: string) => {
+    return async (dispatch: Dispatch<ActionType>) => {
+        const data = await getUserStatus(userId)
+        dispatch(setStatus(data))
+    }
 }
 
 export const updateStatusTC = (status: string) => {
     return async (dispatch: Dispatch<ActionType>) => {
-        let data = await updateUserStatus(status)
+        const data = await updateUserStatus(status)
         if (data.resultCode === 0) {
             dispatch(setStatus(status))
         }
     }
 }
 
-export const savePhotoTC = (file: FileList | null) => {
+export const savePhotoTC = (file: File) => {
     return async (dispatch: Dispatch<ActionType>) => {
-        let data = await saveUserPhoto(file)
+        const data = await saveUserPhoto(file)
         if (data.resultCode === 0) {
             dispatch(savePhotoSuccess(data.data))
         }
@@ -117,6 +156,7 @@ export default profileReducer
 
 export type ResponseGetProfileType = {
     userId: number
+    aboutMe: string
     lookingForAJob: boolean
     lookingForAJobDescription: string
     fullName: string
@@ -136,16 +176,14 @@ export type ResponseGetProfileType = {
     }
 }
 
-export type ResponseStatusType = {
+export type ResponseStatusType<T> = {
     resultCode: number
     messages: string[]
-    data: {}
+    data: T
 }
 
-export type ResponsePhotosType = {
-    resultCode: number
-    messages: string[]
-    data: {
+export type DataPhotoType = {
+    photos: {
         small: string | null
         large: string | null
     }

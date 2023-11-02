@@ -12,9 +12,18 @@ type FormDataType = {
     email: string
     password: string
     rememberMe: boolean
+    captcha: string
 }
 
-const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({ handleSubmit, error }) => {
+type CaptchaType = {
+    captchaUrl: string
+}
+
+const LoginForm: React.FC<InjectedFormProps<FormDataType, CaptchaType> & CaptchaType> = ({
+    handleSubmit,
+    error,
+    captchaUrl,
+}) => {
     return (
         <form onSubmit={handleSubmit}>
             <div>
@@ -43,15 +52,25 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({ handleSubmit, er
             <div>
                 <button>Login</button>
             </div>
+            {captchaUrl && <img src={captchaUrl} alt="captcha" />}
+            {captchaUrl && (
+                <Field
+                    placeholder="Symbols from image"
+                    name="captcha"
+                    component={Element}
+                    elementType="input"
+                    validate={[required]}
+                />
+            )}
         </form>
     )
 }
 
-const LoginReduxForm = reduxForm<FormDataType>({ form: 'login' })(LoginForm)
+const LoginReduxForm = reduxForm<FormDataType, CaptchaType>({ form: 'login' })(LoginForm)
 
 const Login = (props: PropsType) => {
     const onSubmit = (formData: FormDataType) => {
-        props.loginTC(formData.email, formData.password, formData.rememberMe)
+        props.loginTC(formData.email, formData.password, formData.rememberMe, formData.captcha)
     }
     if (props.resultCode === 0) {
         return <Redirect to="/profile" />
@@ -60,16 +79,17 @@ const Login = (props: PropsType) => {
     return (
         <div className={s.login}>
             <h1>Login</h1>
-            <LoginReduxForm onSubmit={onSubmit} />
+            <LoginReduxForm onSubmit={onSubmit} captchaUrl={props.captchaUrl} />
         </div>
     )
 }
 
 type MapDispatchPropsType = {
-    loginTC: (email: string, password: string, rememberMe: boolean) => void
+    loginTC: (email: string, password: string, rememberMe: boolean, captcha: string) => void
 }
 type MapStatePropsType = {
     resultCode: number
+    captchaUrl: string
 }
 
 type PropsType = MapStatePropsType & MapDispatchPropsType
@@ -77,6 +97,7 @@ type PropsType = MapStatePropsType & MapDispatchPropsType
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
         resultCode: state.auth.resultCode,
+        captchaUrl: state.auth.captcha.url,
     }
 }
 

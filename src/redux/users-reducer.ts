@@ -8,7 +8,7 @@ const initialState = {
     pageSize: 100,
     currentPage: 1,
     isFetching: false,
-    followingInProgress: [] as any,
+    followingInProgress: [] as number[],
 }
 
 export type InitialStateUsersType = typeof initialState
@@ -50,11 +50,14 @@ const usersReducer = (state = initialState, action: ActionType): InitialStateUse
             return { ...state, isFetching: action.isFetching }
 
         case 'SET-FOLLOWING-PROGRESS':
+            console.log(state.followingInProgress)
+            console.log(state.isFetching)
+
             return {
                 ...state,
                 followingInProgress: action.isFetching
                     ? [...state.followingInProgress, action.id]
-                    : [state.followingInProgress.filter((id: number) => id !== action.id)],
+                    : [...state.followingInProgress.filter((id: number) => id !== action.id)],
             }
 
         default:
@@ -123,10 +126,10 @@ export type ResponseGetUserType = {
 export type ResponseItemType = {
     name: string
     id: number
+    status: string
     photos: {
         small: string | null
         large: string | null
     }
-    status: null
     followed: boolean
 }

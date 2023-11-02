@@ -2,7 +2,13 @@ import { AnyAction, applyMiddleware, combineReducers, createStore } from 'redux'
 import thunkMiddleware, { ThunkDispatch } from 'redux-thunk'
 import { useDispatch } from 'react-redux'
 
-import profileReducer, { addPostAC, setStatus, setProfile, savePhotoSuccess } from './profile-reducer'
+import profileReducer, {
+    addPostAC,
+    setStatus,
+    setProfile,
+    savePhotoSuccess,
+    saveProfileSuccess,
+} from './profile-reducer'
 import dialogsReducer, { sendMessageAC } from './dialogs-reducer'
 import usersReducer, {
     follow,
@@ -14,7 +20,7 @@ import usersReducer, {
     unfollow,
 } from './users-reducer'
 
-import authReducer, { setAuthUserData, setLogout } from './auth-reducer'
+import authReducer, { getCaptchaSuccess, setAuthUserData, setLogout } from './auth-reducer'
 import { reducer as formReducer } from 'redux-form'
 import appReducer, { initializedSuccess } from './app-reducer'
 
@@ -37,6 +43,7 @@ export const useAppDispatch = () => useDispatch<AppThunkDispatch>()
 export type ActionType =
     | ReturnType<typeof addPostAC>
     | ReturnType<typeof setProfile>
+    | ReturnType<typeof saveProfileSuccess>
     | ReturnType<typeof setStatus>
     | ReturnType<typeof savePhotoSuccess>
     | ReturnType<typeof sendMessageAC>
@@ -50,6 +57,7 @@ export type ActionType =
     | ReturnType<typeof setAuthUserData>
     | ReturnType<typeof setLogout>
     | ReturnType<typeof initializedSuccess>
+    | ReturnType<typeof getCaptchaSuccess>
 
 // @ts-ignore
 window.store = store
