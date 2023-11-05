@@ -1,9 +1,9 @@
 import { PostType } from 'components/Profile/MyPosts/Post/Post'
-import { ActionType, AppStateType, AppThunkDispatch } from './redux-store'
+import { ActionType, AppThunkDispatch } from './redux-store'
 import { getProfile, getUserStatus, saveUserPhoto, updateProfile, updateUserStatus } from 'api/api'
 import { Dispatch } from 'redux'
 import { FormProfileDataType } from 'components/Profile/ProfileInfo/ProfileDataForm'
-import { ThunkDispatch } from 'redux-thunk'
+
 import { stopSubmit } from 'redux-form'
 
 export type InitialStateProfileType = {
