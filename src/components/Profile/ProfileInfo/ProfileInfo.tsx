@@ -4,7 +4,7 @@ import foto from 'assets/photo/avaGirl-1.jpg'
 import ProfileStatus from './ProfileStatus'
 import React, { ChangeEvent } from 'react'
 import { ResponseGetProfileType } from 'redux/profile-reducer'
-import { FormProfileDataType, ProfileDataReduxForm } from './ProfileDataForm'
+import { ProfileDataReduxForm } from './ProfileDataForm'
 
 const ProfileInfo = (props: PropsType) => {
     const { profile, status, updateStatus, isOwner, savePhoto, saveProfile } = props
@@ -30,12 +30,12 @@ const ProfileInfo = (props: PropsType) => {
         })
     }
 
-    const profileData = { contacts: profile.contacts }
+    // const profileData = { contacts: profile.contacts }
     return (
         <div>
-            <p>
+            <div>
                 <b>My status</b>:<ProfileStatus status={status} updateStatus={updateStatus} />
-            </p>
+            </div>
 
             <div className="description">
                 <img src={profile.photos.large || foto} alt="Profile" />
@@ -66,26 +66,26 @@ const ProfileData: React.FC<ProfileDataProps> = (props) => {
                     <button onClick={goToEdimMode}>edit</button>
                 </div>
             )}
-            <p>
+            <div>
                 <b>Full name</b>:{fullName}
-            </p>
-            <p>
+            </div>
+            <div>
                 <b>About me</b>:{aboutMe}
-            </p>
-            <p>
+            </div>
+            <div>
                 <b>My skills</b>:{lookingForAJobDescription}
-            </p>
-            <p>
+            </div>
+            <div>
                 <b>Looking for a job</b>:{lookingForAJob ? 'yes' : 'no'}
-            </p>
+            </div>
             <div>
                 Contact:
-                {Object.keys(contacts).map((c) => {
-                    const contactKey = c as keyof typeof contacts
+                {Object.keys(contacts).map((key) => {
+                    const contactKey = key as keyof typeof contacts
                     const contactValue = contacts[contactKey]
 
                     if (contactValue && contactValue.trim() !== '') {
-                        return <Contact key={c} contactTitle={c} contactValue={contactValue} />
+                        return <Contact key={key} contactTitle={key} contactValue={contactValue} />
                     }
 
                     return null

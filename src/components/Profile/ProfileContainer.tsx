@@ -67,7 +67,7 @@ type MapDispatchPropsType = {
     getStatusTC: (userId: string) => void
     updateStatusTC: (status: string) => void
     savePhotoTC: (file: File) => void
-    saveProfileTC: (newProfile: ResponseGetProfileType) => void
+    saveProfileTC: (newProfile: ResponseGetProfileType) => Promise<any>
 }
 type ProfilePropsType = MapStatePropsType & MapDispatchPropsType
 

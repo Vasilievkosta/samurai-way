@@ -9,16 +9,7 @@ export type FormProfileDataType = {
     lookingForAJobDescriptions: string
     lookingForAJob: boolean
     fullName: string
-    // contacts: {
-    //     github: string
-    //     vk: string
-    //     facebook: string
-    //     instagram: string
-    //     twitter: string
-    //     website: string
-    //     youtube: string
-    //     mainLink: string
-    // }
+    contacts: ContactsType
 }
 
 type ContactsType = {
@@ -34,7 +25,6 @@ type ContactsType = {
 
 const ProfileDataForm: React.FC<InjectedFormProps<ResponseGetProfileType>> = (props) => {
     const contacts = props.initialValues.contacts!
-    console.log(props.error)
 
     return (
         <form onSubmit={props.handleSubmit}>
@@ -79,17 +69,11 @@ const ProfileDataForm: React.FC<InjectedFormProps<ResponseGetProfileType>> = (pr
 
             <div>
                 Contacts:
-                {Object.keys(contacts).map((c) => {
+                {Object.keys(contacts).map((key) => {
                     return (
-                        <div style={{ display: 'flex' }}>
-                            <b>{c}</b>
-                            <Field
-                                key={c}
-                                placeholder={c}
-                                name={`contacts.${c}`}
-                                component={Element}
-                                elementType="input"
-                            />
+                        <div style={{ display: 'flex' }} key={key}>
+                            <b>{key}</b>
+                            <Field placeholder={key} name={`contacts.${key}`} component={Element} elementType="input" />
                         </div>
                     )
                 })}
