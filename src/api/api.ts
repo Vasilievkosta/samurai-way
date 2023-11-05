@@ -5,11 +5,13 @@ import { ResponseAuthType } from 'redux/auth-reducer'
 import { DataPhotoType, ResponseGetProfileType, ResponseStatusType } from 'redux/profile-reducer'
 import { ResponseGetUserType } from 'redux/users-reducer'
 
+const apiKey = process.env.REACT_APP_API_KEY as string
+
 const instance = axios.create({
     withCredentials: true,
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
     headers: {
-        'API-KEY': '20104153-3dfc-4547-aac8-f28dda96c7d5',
+        'API-KEY': apiKey,
     },
 })
 
