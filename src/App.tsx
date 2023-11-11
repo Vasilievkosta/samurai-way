@@ -1,6 +1,6 @@
 import React, { Suspense, lazy } from 'react'
 import './App.css'
-import { BrowserRouter, Route } from 'react-router-dom'
+import { HashRouter, Route } from 'react-router-dom'
 import Navbar from './components/Navbar/Navbar'
 import HeaderContainer from 'components/Header/HeaderContainer'
 import Music from 'components/Music/Music'
@@ -26,7 +26,7 @@ class App extends React.Component<PropsType> {
             return <Preloader />
         }
         return (
-            <BrowserRouter>
+            <HashRouter>
                 <div className="App">
                     <HeaderContainer />
                     <Navbar />
@@ -38,12 +38,12 @@ class App extends React.Component<PropsType> {
                             <Route path="/users" render={() => <UsersContainer />} />
 
                             <Route path="/music" component={Music} />
-                            <Route path="/settings" component={Music} />
+                            <Route path="/settings" render={() => <h2>Settings</h2>} />
                             <Route path="/login" component={Login} />
                         </Suspense>
                     </div>
                 </div>
-            </BrowserRouter>
+            </HashRouter>
         )
     }
 }
