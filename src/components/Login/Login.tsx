@@ -26,8 +26,9 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType, CaptchaType> & Captcha
 }) => {
     return (
         <form onSubmit={handleSubmit}>
-            <div>
+            <div style={{ minHeight: '70px' }}>
                 <Field
+                    className={s.field}
                     placeholder="E-mail"
                     name="email"
                     component={Element}
@@ -35,9 +36,10 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType, CaptchaType> & Captcha
                     validate={[required]}
                 />
             </div>
-            <div>
+            <div style={{ minHeight: '70px' }}>
                 <Field
-                    placeholder="Password"
+                    className={s.field}
+                    placeholder="password"
                     name="password"
                     component={Element}
                     elementType="input"
@@ -45,12 +47,13 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType, CaptchaType> & Captcha
                     type="password"
                 />
             </div>
-            <div>
+            <div style={{ display: 'flex', marginBottom: '15px' }}>
                 <Field component={Element} elementType="input" name="rememberMe" type="checkbox" /> remember me
             </div>
-            {error && <span className={s.loginError}>{error}</span>}
+            <p>{error && <p>{error}</p>}</p>
+
             <div>
-                <button>Login</button>
+                <button className="btn">Login</button>
             </div>
             {captchaUrl && <img src={captchaUrl} alt="captcha" />}
             {captchaUrl && (
@@ -78,8 +81,16 @@ const Login = (props: PropsType) => {
 
     return (
         <div className={s.login}>
-            <h1>Login</h1>
-            <LoginReduxForm onSubmit={onSubmit} captchaUrl={props.captchaUrl} />
+            <div style={{ marginRight: '25px' }}>
+                <h1 style={{ marginBottom: '15px' }}>Login</h1>
+                <LoginReduxForm onSubmit={onSubmit} captchaUrl={props.captchaUrl} />
+            </div>
+
+            <div className={s.account}>
+                <p>use common test account credentials:</p>
+                <p> Email: free@samuraijs.com</p>
+                <p>Password: free</p>
+            </div>
         </div>
     )
 }

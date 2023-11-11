@@ -1,10 +1,44 @@
 .login {
-    background-color: lightblue;
-    color: lightcoral;
+    display: flex;
+    color: #4d75a3;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
 }
 
-.loginError {
-    border: 1px solid red;
+input + p {
     color: red;
-    padding: 3px;
 }
+
+.field {
+    height: 40px;
+    width: 100%;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    outline: 0;
+}
+
+.field:hover {
+    border-color: #4d75a3;
+}
+
+/* .btn {
+    color: #fff;
+    font-weight: 500;
+    background-color: #4d75a3;
+    padding: 10px 50px;
+    border: 2px solid #4d75a3;
+    border-radius: 8px;
+    outline: 0;
+    cursor: pointer;
+    transition: color, background-color 0.3s;
+}
+
+.btn:hover {
+    color: #4d75a3;
+    background-color: #fff;
+}
+.btn:active {
+    color: #fff;
+    background-color: #4d75a3;
+} */

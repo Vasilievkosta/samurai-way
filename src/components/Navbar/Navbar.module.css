@@ -1,23 +1,31 @@
 .nav {
-	grid-area: n;
-	background-color: lightskyblue;
+    background-color: white;
+    margin-bottom: 70px;
+    border-radius: 0 0 9px 9px;
 }
 
 .list {
-	/* list-style-type: none; */
-	padding: 15px;
+    padding: 13px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .list a {
-	/* text-decoration: none; */
-	border-bottom: 1px solid transparent;
-	transition: border 0.3s;
+    font-size: 18px;
+    padding-bottom: 20px;
+    line-height: 2.5;
+    color: #97a4b1;
+    margin-right: 45px;
+    border-bottom: 5px solid transparent;
+    transition: color, border-bottom 0.3s;
 }
 
 .list a.activeLink {
-	color: blueviolet;
+    color: #365375;
 }
 
 .list a:hover {
-	border-bottom-color: #0000ee;
+    border-bottom-color: #4d75a3;
+    color: #667a90;
 }

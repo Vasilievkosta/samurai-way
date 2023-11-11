@@ -1,3 +1,34 @@
 .posts {
-	border: 1px solid red;
+    border: 1px solid greenyellow;
+    padding: 20px;
+}
+
+.form {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.textarea {
+    min-height: 100px;
+    padding: 20px;
+    width: 100%;
+    max-width: 800px;
+}
+
+.field {
+    height: 40px;
+    width: 100%;
+    border: 2px solid #e5e5e5;
+    border-radius: 8px;
+    outline: 0;
+    resize: none;
+}
+
+.field:hover {
+    border-color: #4d75a3;
+}
+
+textarea + p {
+    color: red;
 }

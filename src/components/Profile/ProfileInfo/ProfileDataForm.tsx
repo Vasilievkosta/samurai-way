@@ -28,58 +28,67 @@ const ProfileDataForm: React.FC<InjectedFormProps<ResponseGetProfileType>> = (pr
 
     return (
         <form onSubmit={props.handleSubmit}>
-            {props.error && <div style={{ color: 'red' }}>{props.error}</div>}
             <div style={{ display: 'flex' }}>
-                <b>Full name </b>:
-                <Field
-                    placeholder="fullName"
-                    name="fullName"
-                    component={Element}
-                    elementType="input"
-                    validate={[required]}
-                />
-            </div>
+                <div>
+                    {props.error && <div style={{ color: 'red' }}>{props.error}</div>}
+                    <div style={{ display: 'flex' }}>
+                        <b>Full name </b>:
+                        <Field
+                            placeholder="fullName"
+                            name="fullName"
+                            component={Element}
+                            elementType="input"
+                            validate={[required]}
+                        />
+                    </div>
 
-            <div style={{ display: 'flex' }}>
-                <b>About Me </b>:
-                <Field
-                    placeholder="aboutMe"
-                    name="aboutMe"
-                    component={Element}
-                    elementType="input"
-                    validate={[required]}
-                />
-            </div>
+                    <div style={{ display: 'flex' }}>
+                        <b>About Me </b>:
+                        <Field
+                            placeholder="aboutMe"
+                            name="aboutMe"
+                            component={Element}
+                            elementType="input"
+                            validate={[required]}
+                        />
+                    </div>
 
-            <div style={{ display: 'flex' }}>
-                <b>My skills</b>:
-                <Field
-                    placeholder="My skills"
-                    name="lookingForAJobDescription"
-                    component={Element}
-                    elementType="textarea"
-                    validate={[required]}
-                />
-            </div>
+                    <div style={{ display: 'flex' }}>
+                        <b>My skills</b>:
+                        <Field
+                            placeholder="My skills"
+                            name="lookingForAJobDescription"
+                            component={Element}
+                            elementType="textarea"
+                            validate={[required]}
+                        />
+                    </div>
 
-            <div style={{ display: 'flex' }}>
-                <b>Looking for a job</b>:
-                <Field name="lookingForAJob" component={Element} elementType="input" type="checkbox" />
-            </div>
+                    <div style={{ display: 'flex' }}>
+                        <b>Looking for a job</b>:
+                        <Field name="lookingForAJob" component={Element} elementType="input" type="checkbox" />
+                    </div>
+                </div>
 
-            <div>
-                Contacts:
-                {Object.keys(contacts).map((key) => {
-                    return (
-                        <div style={{ display: 'flex' }} key={key}>
-                            <b>{key}</b>
-                            <Field placeholder={key} name={`contacts.${key}`} component={Element} elementType="input" />
-                        </div>
-                    )
-                })}
-            </div>
-            <div>
-                <button>enter</button>
+                <div>
+                    Contacts:
+                    {Object.keys(contacts).map((key) => {
+                        return (
+                            <div style={{ display: 'flex' }} key={key}>
+                                <b>{key}</b>
+                                <Field
+                                    placeholder={key}
+                                    name={`contacts.${key}`}
+                                    component={Element}
+                                    elementType="input"
+                                />
+                            </div>
+                        )
+                    })}
+                    <div>
+                        <button className="btn">enter</button>
+                    </div>
+                </div>
             </div>
         </form>
     )

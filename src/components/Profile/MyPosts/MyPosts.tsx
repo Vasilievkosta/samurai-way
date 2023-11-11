@@ -10,22 +10,23 @@ type FormDataType = {
     newPost: string
 }
 
-const maxLength10 = maxLengthCreator(10)
+const maxLength90 = maxLengthCreator(90)
 
 const AddPostForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
     return (
-        <form onSubmit={props.handleSubmit}>
-            <div>
+        <form className={s.form} onSubmit={props.handleSubmit}>
+            <div className={s.textarea}>
                 <Field
+                    className={s.field}
                     placeholder="new post"
                     component={Element}
                     elementType="textarea"
                     name="newPost"
-                    validate={[required, maxLength10]}
+                    validate={[required, maxLength90]}
                 />
             </div>
             <div>
-                <button>Add post</button>
+                <button className="btn">Add post</button>
             </div>
         </form>
     )
@@ -40,13 +41,13 @@ const MyPosts = (props: MyPostType) => {
 
     return (
         <>
-            <div>
-                <AddPostReduxForm onSubmit={addNewPost} />
-            </div>
             <div className={s.posts}>
                 {props.profilePage.posts.map((p) => (
                     <Post message={p.message} like={p.like} key={p.id} />
                 ))}
+            </div>
+            <div>
+                <AddPostReduxForm onSubmit={addNewPost} />
             </div>
         </>
     )

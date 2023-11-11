@@ -1,15 +1,31 @@
 .App {
     max-width: 1200px;
+    padding: 0 5px;
     margin: 0 auto;
-    display: grid;
-    grid-template-areas:
-        'h h'
-        'n c';
-    grid-template-rows: auto 1fr;
-    grid-template-columns: 2fr 10fr;
 }
 
 .content {
-    grid-area: c;
-    background-color: aquamarine;
+    background-color: white;
+    border-radius: 9px;
+}
+
+.btn {
+    color: #fff;
+    font-weight: 500;
+    background-color: #4d75a3;
+    padding: 10px 50px;
+    border: 2px solid #4d75a3;
+    border-radius: 8px;
+    outline: 0;
+    cursor: pointer;
+    transition: color, background-color 0.3s;
+}
+
+.btn:hover {
+    color: #4d75a3;
+    background-color: #fff;
+}
+.btn:active {
+    color: #fff;
+    background-color: #4d75a3;
 }

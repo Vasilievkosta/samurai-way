@@ -1,16 +1,15 @@
 .wrap {
-	background-color: lightblue;
-	color: green;
-	display: flex;
-
+    color: green;
+    display: flex;
+    padding: 10px;
 }
 
 .dialogs,
 .messages {
-	padding: 15px;
-	margin: 10px;
+    padding: 15px;
+    margin: 10px;
 }
 
 .dialogs {
-	border-right: 1px solid lightslategray;
+    border-right: 1px solid lightslategray;
 }

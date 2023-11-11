@@ -1,6 +1,7 @@
 import Preloader from 'components/common/Preloader/Preloader'
 import { PropsType } from '../Profile'
 import foto from 'assets/photo/avaGirl-1.jpg'
+import s from './ProfileInfo.module.css'
 import ProfileStatus from './ProfileStatus'
 import React, { ChangeEvent } from 'react'
 import { ResponseGetProfileType } from 'redux/profile-reducer'
@@ -32,19 +33,24 @@ const ProfileInfo = (props: PropsType) => {
 
     // const profileData = { contacts: profile.contacts }
     return (
-        <div>
+        <div className={s.profile}>
             <div>
                 <b>My status</b>:<ProfileStatus status={status} updateStatus={updateStatus} />
             </div>
 
-            <div className="description">
-                <img src={profile.photos.large || foto} alt="Profile" />
-                {isOwner && <input type="file" onChange={onMainPhotoSelected} />}
-                {editMode ? (
-                    <ProfileDataReduxForm initialValues={profile} onSubmit={onSubmit} />
-                ) : (
-                    <ProfileData {...profile} isOwner={isOwner} goToEdimMode={goToEdimMode} />
-                )}
+            <div className={s.description}>
+                <div>
+                    <img src={profile.photos.large || foto} alt="Profile" />
+                    {isOwner && <input className={s.editFoto} type="file" onChange={onMainPhotoSelected} />}
+                </div>
+
+                <div>
+                    {editMode ? (
+                        <ProfileDataReduxForm initialValues={profile} onSubmit={onSubmit} />
+                    ) : (
+                        <ProfileData {...profile} isOwner={isOwner} goToEdimMode={goToEdimMode} />
+                    )}
+                </div>
             </div>
         </div>
     )
@@ -61,36 +67,44 @@ const ProfileData: React.FC<ProfileDataProps> = (props) => {
     const { fullName, aboutMe, lookingForAJobDescription, lookingForAJob, contacts, isOwner, goToEdimMode } = props
     return (
         <div>
+            <div className={s.about}>
+                <ul className={s.list}>
+                    <li>
+                        Full name: <span className={s.name}>{fullName} </span>
+                    </li>
+                    <li>
+                        <b>About me: </b>
+                        <span>{aboutMe}</span>
+                    </li>
+                    <li>
+                        My skills: <span>{lookingForAJobDescription}</span>
+                    </li>
+                    <li>
+                        Looking for a job: <span>{lookingForAJob ? 'yes' : 'no'}</span>
+                    </li>
+                </ul>
+
+                <div className={s.contact}>
+                    Contact:
+                    {Object.keys(contacts).map((key) => {
+                        const contactKey = key as keyof typeof contacts
+                        const contactValue = contacts[contactKey]
+
+                        if (contactValue && contactValue.trim() !== '') {
+                            return <Contact key={key} contactTitle={key} contactValue={contactValue} />
+                        }
+
+                        return null
+                    })}
+                </div>
+            </div>
             {isOwner && (
                 <div>
-                    <button onClick={goToEdimMode}>edit</button>
+                    <button className="btn" onClick={goToEdimMode}>
+                        edit profile
+                    </button>
                 </div>
             )}
-            <div>
-                <b>Full name</b>:{fullName}
-            </div>
-            <div>
-                <b>About me</b>:{aboutMe}
-            </div>
-            <div>
-                <b>My skills</b>:{lookingForAJobDescription}
-            </div>
-            <div>
-                <b>Looking for a job</b>:{lookingForAJob ? 'yes' : 'no'}
-            </div>
-            <div>
-                Contact:
-                {Object.keys(contacts).map((key) => {
-                    const contactKey = key as keyof typeof contacts
-                    const contactValue = contacts[contactKey]
-
-                    if (contactValue && contactValue.trim() !== '') {
-                        return <Contact key={key} contactTitle={key} contactValue={contactValue} />
-                    }
-
-                    return null
-                })}
-            </div>
         </div>
     )
 }
