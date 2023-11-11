@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/samurai-way/static/css/main.7ba03fc3.css",
+    "main.js": "/samurai-way/static/js/main.86794882.js",
+    "static/css/961.fbb5afe3.chunk.css": "/samurai-way/static/css/961.fbb5afe3.chunk.css",
+    "static/js/961.76c6a0a3.chunk.js": "/samurai-way/static/js/961.76c6a0a3.chunk.js",
+    "static/media/avaGirl-2.jpg": "/samurai-way/static/media/avaGirl-2.5a88ddf9a38a1da5b88c.jpg",
+    "static/media/Rubik-Medium.woff": "/samurai-way/static/media/Rubik-Medium.c193e27e14b005817b93.woff",
+    "static/media/Rubik-Bold.woff": "/samurai-way/static/media/Rubik-Bold.7bfff7011ead43b30636.woff",
+    "static/media/Rubik-Regular.woff": "/samurai-way/static/media/Rubik-Regular.6e5918a4c0fbd47934a7.woff",
+    "static/media/Rubik-Light.woff": "/samurai-way/static/media/Rubik-Light.fdadf66257fbe0ed2fc2.woff",
+    "static/media/Rubik-Medium.woff2": "/samurai-way/static/media/Rubik-Medium.6c04a10121ed706f794b.woff2",
+    "static/media/Rubik-Bold.woff2": "/samurai-way/static/media/Rubik-Bold.2341a28164f32f652711.woff2",
+    "static/media/Rubik-Regular.woff2": "/samurai-way/static/media/Rubik-Regular.de9ced2ccfc8ad55cdbe.woff2",
+    "static/media/Rubik-Light.woff2": "/samurai-way/static/media/Rubik-Light.4c55cd29d9bedf7bb132.woff2",
+    "static/media/rotation.png": "/samurai-way/static/media/rotation.056399131010bf7bcbdf.png",
+    "static/media/sprite.svg": "/samurai-way/static/media/sprite.c6152b1090dc2bc99460680fec08978f.svg",
+    "index.html": "/samurai-way/index.html",
+    "main.7ba03fc3.css.map": "/samurai-way/static/css/main.7ba03fc3.css.map",
+    "main.86794882.js.map": "/samurai-way/static/js/main.86794882.js.map",
+    "961.fbb5afe3.chunk.css.map": "/samurai-way/static/css/961.fbb5afe3.chunk.css.map",
+    "961.76c6a0a3.chunk.js.map": "/samurai-way/static/js/961.76c6a0a3.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7ba03fc3.css",
+    "static/js/main.86794882.js"
+  ]
+}
