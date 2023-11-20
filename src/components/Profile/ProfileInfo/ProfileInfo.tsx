@@ -6,6 +6,7 @@ import ProfileStatus from './ProfileStatus'
 import React, { ChangeEvent } from 'react'
 import { ResponseGetProfileType } from 'redux/profile-reducer'
 import { ProfileDataReduxForm } from './ProfileDataForm'
+import { Modal } from 'components/common/Modal/Modal'
 
 const ProfileInfo = (props: PropsType) => {
     const { profile, status, updateStatus, isOwner, savePhoto, saveProfile } = props
@@ -46,7 +47,9 @@ const ProfileInfo = (props: PropsType) => {
 
                 <div>
                     {editMode ? (
-                        <ProfileDataReduxForm initialValues={profile} onSubmit={onSubmit} />
+                        <Modal active={editMode} setActive={setEditMode}>
+                            <ProfileDataReduxForm initialValues={profile} onSubmit={onSubmit} />
+                        </Modal>
                     ) : (
                         <ProfileData {...profile} isOwner={isOwner} goToEdimMode={goToEdimMode} />
                     )}
