@@ -1,6 +1,6 @@
 import React, { Suspense, lazy } from 'react'
 import './App.css'
-import { HashRouter, Route } from 'react-router-dom'
+import { HashRouter, Redirect, Route, Switch } from 'react-router-dom'
 import Navbar from './components/Navbar/Navbar'
 import HeaderContainer from 'components/Header/HeaderContainer'
 import Music from 'components/Music/Music'
@@ -33,13 +33,18 @@ class App extends React.Component<PropsType> {
 
                     <div className="content">
                         <Suspense fallback={<div>Loading...</div>}>
-                            <Route path="/dialogs" render={() => <DialogsContainer />} />
-                            <Route path="/profile/:userId?" render={() => <ProfileContainer />} />
-                            <Route path="/users" render={() => <UsersContainer />} />
+                            <Switch>
+                                <Route exact path="/" render={() => <Redirect to={'/profile'} />} />
+                                <Route path="/dialogs" render={() => <DialogsContainer />} />
+                                <Route path="/profile/:userId?" render={() => <ProfileContainer />} />
+                                <Route path="/users" render={() => <UsersContainer />} />
 
-                            <Route path="/music" component={Music} />
-                            <Route path="/settings" render={() => <h2>Settings</h2>} />
-                            <Route path="/login" component={Login} />
+                                <Route path="/music" component={Music} />
+                                <Route path="/settings" render={() => <h2>Settings</h2>} />
+                                <Route path="/login" component={Login} />
+
+                                <Route path="*" render={() => <h2>404</h2>} />
+                            </Switch>
                         </Suspense>
                     </div>
                 </div>

@@ -1,5 +1,5 @@
 import { PostType } from 'components/Profile/MyPosts/Post/Post'
-import { ActionType, AppThunkDispatch } from './redux-store'
+import { ActionType, AppStateType, AppThunkDispatch } from './redux-store'
 import { getProfile, getUserStatus, saveUserPhoto, updateProfile, updateUserStatus } from 'api/api'
 import { Dispatch } from 'redux'
 import { FormProfileDataType } from 'components/Profile/ProfileInfo/ProfileDataForm'
@@ -114,11 +114,12 @@ export const getProfileTC = (userId: string) => {
 }
 
 export const saveProfileTC = (newProfile: FormProfileDataType) => {
-    return async (dispatch: AppThunkDispatch, getState: any) => {
+    return async (dispatch: AppThunkDispatch, getState: () => AppStateType) => {
         const userId = getState().auth.data.id
         const data = await updateProfile(newProfile)
+
         if (data.resultCode === 0) {
-            dispatch(getProfileTC(userId))
+            dispatch(getProfileTC(String(userId)))
         } else {
             const action = stopSubmit('edit-profile', { _error: data.messages[0] })
             dispatch(action)

@@ -9,7 +9,7 @@ export type PropsType = {
     updateStatus: (status: string) => void
     isOwner: boolean
     savePhoto: (file: File) => void
-    saveProfile: (profile: ResponseGetProfileType) => Promise<any>
+    saveProfile: (profile: ResponseGetProfileType) => Promise<string>
 }
 
 const Profile = (props: PropsType) => {
