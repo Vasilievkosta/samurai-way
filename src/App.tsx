@@ -13,6 +13,7 @@ import { AppStateType } from 'redux/redux-store'
 import Preloader from 'components/common/Preloader/Preloader'
 
 import ProfileContainer from 'components/Profile/ProfileContainer'
+import MusicWrap from 'components/Music/MusicWrap'
 
 const DialogsContainer = lazy(() => import('components/Dialogs/DialogsContainer'))
 // const ProfileContainer = lazy(() => import('components/Profile/ProfileContainer'))
@@ -39,7 +40,7 @@ class App extends React.Component<PropsType> {
                                 <Route path="/profile/:userId?" render={() => <ProfileContainer />} />
                                 <Route path="/users" render={() => <UsersContainer />} />
 
-                                <Route path="/music" component={Music} />
+                                <Route path="/music" component={MusicWrap} />
                                 <Route path="/settings" render={() => <h2>Settings</h2>} />
                                 <Route path="/login" component={Login} />
 

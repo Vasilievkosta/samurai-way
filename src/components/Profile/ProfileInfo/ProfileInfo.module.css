@@ -1,15 +1,18 @@
 .profile {
     padding: 15px;
+    color: #3f4f5f;
 }
 
 .about {
     display: flex;
     justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 20px;
+    
 }
 
 .list {
     color: #3f4f5f;
-    max-width: 500px;
 }
 
 .name {
@@ -18,14 +21,17 @@
 }
 
 .description {
-    display: flex;
+    display: flex;   
 }
 
-.description img {
+.wrapFoto{
+    margin-right: 20px;
+}
+.wrapFoto img{
     width: 200px;
     border-radius: 50%;
     border: 2px solid #e9e8e4;
-    margin-right: 50px;
+    
 }
 
 .editFoto {
@@ -49,4 +55,10 @@
 .editFoto::-webkit-file-upload-button:active {
     color: #4d75a3;
     background-color: #fff;
+}
+
+.wrapControl {
+    display:flex;
+    align-items: center;
+    justify-content: flex-end;
 }

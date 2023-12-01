@@ -40,9 +40,8 @@ const ProfileInfo = (props: PropsType) => {
             </div>
 
             <div className={s.description}>
-                <div>
+                <div className={s.wrapFoto}>
                     <img src={profile.photos.large || foto} alt="Profile" />
-                    {isOwner && <input className={s.editFoto} type="file" onChange={onMainPhotoSelected} />}
                 </div>
 
                 <div>
@@ -55,6 +54,7 @@ const ProfileInfo = (props: PropsType) => {
                     )}
                 </div>
             </div>
+            {isOwner && <input className={s.editFoto} type="file" onChange={onMainPhotoSelected} />}
         </div>
     )
 }
@@ -68,6 +68,8 @@ type ProfileDataProps = ResponseGetProfileType & {
 
 const ProfileData: React.FC<ProfileDataProps> = (props) => {
     const { fullName, aboutMe, lookingForAJobDescription, lookingForAJob, contacts, isOwner, goToEdimMode } = props
+    const identified = Object.values(contacts).find((el) => el !== null && el.trim() !== '')
+
     return (
         <div>
             <div className={s.about}>
@@ -88,7 +90,8 @@ const ProfileData: React.FC<ProfileDataProps> = (props) => {
                 </ul>
 
                 <div className={s.contact}>
-                    Contact:
+                    {identified && <span style={{ fontSize: '24px' }}>Contacts:</span>}
+
                     {Object.keys(contacts).map((key) => {
                         const contactKey = key as keyof typeof contacts
                         const contactValue = contacts[contactKey]
@@ -96,13 +99,12 @@ const ProfileData: React.FC<ProfileDataProps> = (props) => {
                         if (contactValue && contactValue.trim() !== '') {
                             return <Contact key={key} contactTitle={key} contactValue={contactValue} />
                         }
-
                         return null
                     })}
                 </div>
             </div>
             {isOwner && (
-                <div>
+                <div style={{ textAlign: 'center' }}>
                     <button className="btn" onClick={goToEdimMode}>
                         edit profile
                     </button>

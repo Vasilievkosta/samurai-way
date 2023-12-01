@@ -1,0 +1,52 @@
+.track {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	gap: 20px;
+} 
+.track b {
+	letter-spacing: 1px;
+	font-size: 15px;
+}
+  
+.track p {
+	  letter-spacing: 1px;
+	  color: #9e9e9e;
+	  font-size: 15px;
+}
+
+.playing, .playing p {
+	color: #9340fe;
+}
+  
+.credits {
+	flex: 1;
+  
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+}
+  
+.preview {
+	width: 80px;
+	height: 80px;	
+}
+
+.button {	
+	height: 18px;
+	background-color: transparent;
+	border-color: transparent transparent transparent #202020;
+	transition: 100ms all ease;
+	will-change: border-width;
+	cursor: pointer;
+  
+	/* play */
+	border-style: solid;
+	border-width: 9px 0 9px 16px;
+}
+
+	/* pause */
+.pause {
+	  border-style: double;
+	  border-width: 0 0 0 16px;
+}

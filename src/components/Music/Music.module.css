@@ -1,4 +1,21 @@
-.music {
-    color: lightcoral;
-    padding: 10px;
+.music {    
+    padding: 10px 40px;
 }
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    flex: 1;
+    margin: 10px 0;
+    max-height: calc(100vh - 470px);
+    overflow: auto;
+    padding: 15px 30px;
+    border: 1px solid #eee;
+    border-radius: 20px;
+}
+
+  .input {
+    min-width: 300px;
+    margin: 10px 150px;
+  }
