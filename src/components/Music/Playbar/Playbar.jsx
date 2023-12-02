@@ -3,6 +3,7 @@ import { AudioContext } from '../context/AudioContext'
 import s from './Playbar.module.css'
 import style from '../Track/Track.module.css'
 import { secondsToMMSS } from '../Track/Track'
+import SliderDemo from '../../common/Slider/Slider'
 
 const Playbar = () => {
     const [currentTime, setCurrentTime] = useState(0)
@@ -12,7 +13,7 @@ const Playbar = () => {
 
     const sliderCurrentTime = Math.round((currentTime / duration) * 100)
 
-    const handleChangeCurrentTime = (_, value) => {
+    const handleChangeCurrentTime = (value) => {
         const time = Math.round((value / 100) * duration)
 
         setCurrentTime(time)
@@ -43,7 +44,7 @@ const Playbar = () => {
             <div className={s.slider}>
                 <p>{secondsToMMSS(currentTime)}</p>
                 <div>
-                    Slider step={1} min={0} max={100} value={sliderCurrentTime} onChange={handleChangeCurrentTime}
+                    <SliderDemo value={sliderCurrentTime} onChange={handleChangeCurrentTime} />
                 </div>
                 <p>{secondsToMMSS(duration)}</p>
             </div>

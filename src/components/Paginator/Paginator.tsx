@@ -23,10 +23,12 @@ const Paginator = (props: PropsType) => {
     const leftPortionPageNumber = (portionNumber - 1) * portionSize + 1
     const rightPortionPageNumber = portionNumber * portionSize
     return (
-        <div>
-            <p>{props.totalCount}</p>
-            <span>{pagesCount}</span>
-            <p>{props.currentPage}</p>
+        <div className={s.paginator}>
+            <p>
+                {props.totalCount}
+                <span> - registered users now</span>
+            </p>
+
             <div className={s.count}>
                 {portionNumber > 1 && (
                     <button

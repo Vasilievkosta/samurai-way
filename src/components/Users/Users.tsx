@@ -2,7 +2,6 @@ import React from 'react'
 import s from './Users.module.css'
 import { ResponseItemType } from 'redux/users-reducer'
 import { NavLink } from 'react-router-dom'
-import fotoGirl from 'assets/photo/avaGirl-1.jpg'
 import Paginator from 'components/Paginator/Paginator'
 
 type PropsType = {
@@ -36,44 +35,43 @@ const Users = (props: PropsType) => {
                 {props.users.map((u) => {
                     return (
                         <li className={s.item} key={u.id}>
-                            <div className={s.follow}>
+                            <div className={s.photoLink}>
                                 <NavLink to={'/profile/' + u.id}>
-                                    <img
-                                        className={s.photo}
-                                        src={u.photos.small ? u.photos.small : fotoGirl}
-                                        alt="foto"
-                                    />
+                                    {u.photos.small ? (
+                                        <img className={s.photo} src={u.photos.small} alt="foto" />
+                                    ) : (
+                                        <div className={s.avatar}>{u.name.substring(0, 2)}</div>
+                                    )}
                                 </NavLink>
-
-                                {u.followed ? (
-                                    <button
-                                        disabled={props.followingInProgress.some((id) => id === u.id)}
-                                        onClick={() => {
-                                            props.unfollowTC(u.id)
-                                        }}
-                                    >
-                                        unfollow
-                                    </button>
-                                ) : (
-                                    <button
-                                        disabled={props.followingInProgress.some((id) => id === u.id)}
-                                        onClick={() => {
-                                            console.log(u.id)
-                                            props.followTC(u.id)
-                                        }}
-                                    >
-                                        follow
-                                    </button>
-                                )}
                             </div>
                             <div className={s.description}>
                                 <div className={s.about}>
-                                    <p>{u.name}</p>
-                                    <p>{u.status}</p>
+                                    <p className={s.name}>{u.name}</p>
+                                    <span>{u.status}</span>
                                 </div>
-                                <div className={s.address}>
-                                    <p>{'u.location.city'}</p>
-                                    <p>{'u.location.country'}</p>
+                                <div>
+                                    {u.followed ? (
+                                        <button
+                                            className="btn"
+                                            disabled={props.followingInProgress.some((id) => id === u.id)}
+                                            onClick={() => {
+                                                props.unfollowTC(u.id)
+                                            }}
+                                        >
+                                            unfollow
+                                        </button>
+                                    ) : (
+                                        <button
+                                            className="btn"
+                                            disabled={props.followingInProgress.some((id) => id === u.id)}
+                                            onClick={() => {
+                                                console.log(u.id)
+                                                props.followTC(u.id)
+                                            }}
+                                        >
+                                            follow
+                                        </button>
+                                    )}
                                 </div>
                             </div>
                         </li>

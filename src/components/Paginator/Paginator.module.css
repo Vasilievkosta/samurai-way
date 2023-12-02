@@ -1,3 +1,7 @@
+.paginator {
+    color: #3f4f5f;
+}
+
 .count {
     display: flex;
     flex-wrap: wrap;
@@ -16,3 +20,4 @@
 .selectedPage {
     font-weight: 700;
 }
+

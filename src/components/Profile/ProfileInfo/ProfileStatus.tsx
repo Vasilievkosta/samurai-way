@@ -1,4 +1,5 @@
 import React, { ChangeEvent } from 'react'
+import s from './ProfileInfo.module.css'
 
 type PropsType = {
     status: string
@@ -41,7 +42,7 @@ class ProfileStatus extends React.Component<PropsType> {
         return (
             <div>
                 {!this.state.editMode && (
-                    <div>
+                    <div className={s.status}>
                         <span onDoubleClick={this.activateMode}>{this.props.status || '====='}</span>
                     </div>
                 )}

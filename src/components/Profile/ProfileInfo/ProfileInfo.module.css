@@ -3,12 +3,17 @@
     color: #3f4f5f;
 }
 
+.status {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;    
+}
+
 .about {
     display: flex;
     justify-content: space-between;
     gap: 20px;
-    margin-bottom: 20px;
-    
+    margin-bottom: 20px;    
 }
 
 .list {

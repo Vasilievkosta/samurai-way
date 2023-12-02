@@ -1,5 +1,5 @@
 import s from './Track.module.css'
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 import { AudioContext } from '../context/AudioContext'
 
 export const secondsToMMSS = (seconds) => {
@@ -7,7 +7,7 @@ export const secondsToMMSS = (seconds) => {
 }
 
 const Track = (track) => {
-    const { id, src, preview, title, artists, duration } = track
+    const { preview, title, artists, duration } = track
 
     const { currentTrack, isPlaying, handleToggleAudio } = useContext(AudioContext)
 

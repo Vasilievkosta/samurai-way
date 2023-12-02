@@ -21,24 +21,3 @@ input + p {
 .field:hover {
     border-color: #4d75a3;
 }
-
-/* .btn {
-    color: #fff;
-    font-weight: 500;
-    background-color: #4d75a3;
-    padding: 10px 50px;
-    border: 2px solid #4d75a3;
-    border-radius: 8px;
-    outline: 0;
-    cursor: pointer;
-    transition: color, background-color 0.3s;
-}
-
-.btn:hover {
-    color: #4d75a3;
-    background-color: #fff;
-}
-.btn:active {
-    color: #fff;
-    background-color: #4d75a3;
-} */
