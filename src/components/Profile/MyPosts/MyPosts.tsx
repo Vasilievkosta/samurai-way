@@ -41,11 +41,11 @@ const MyPosts = (props: MyPostType) => {
 
     return (
         <>
-            <div className={s.posts}>
+            <ul className={s.posts}>
                 {props.profilePage.posts.map((p) => (
                     <Post message={p.message} like={p.like} key={p.id} />
                 ))}
-            </div>
+            </ul>
             <div>
                 <AddPostReduxForm onSubmit={addNewPost} />
             </div>

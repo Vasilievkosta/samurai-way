@@ -12,8 +12,7 @@
     outline: 0;
 }
 
-.formControl textarea{
-    min-height: 100px;
+.formControl textarea{    
     resize: none
 }
 
@@ -21,7 +20,7 @@
     background-color: #b6cefc;
 }
 
-.formControl span {
+.errorText {
     color: red;
 }
 

@@ -24,7 +24,7 @@ const Paginator = (props: PropsType) => {
     const rightPortionPageNumber = portionNumber * portionSize
     return (
         <div className={s.paginator}>
-            <p>
+            <p className={s.registered}>
                 {props.totalCount}
                 <span> - registered users now</span>
             </p>
@@ -32,11 +32,12 @@ const Paginator = (props: PropsType) => {
             <div className={s.count}>
                 {portionNumber > 1 && (
                     <button
+                        className={s.btn}
                         onClick={() => {
                             setPortionNumber(portionNumber - 1)
                         }}
                     >
-                        PREV
+                        &laquo;
                     </button>
                 )}
                 {pages
@@ -54,11 +55,12 @@ const Paginator = (props: PropsType) => {
                     })}
                 {portionCount > portionNumber && (
                     <button
+                        className={s.btn}
                         onClick={() => {
                             setPortionNumber(portionNumber + 1)
                         }}
                     >
-                        NEXT
+                        &raquo;
                     </button>
                 )}
             </div>

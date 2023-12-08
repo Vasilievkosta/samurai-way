@@ -1,6 +1,6 @@
 .list {
     list-style-type: 'none';
-    max-height: calc(100vh - 400px);
+    max-height: calc(100vh - 350px);
     overflow: auto;
 }
 

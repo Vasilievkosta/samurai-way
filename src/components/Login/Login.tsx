@@ -50,7 +50,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType, CaptchaType> & Captcha
             <div style={{ display: 'flex', marginBottom: '15px' }}>
                 <Field component={Element} elementType="input" name="rememberMe" type="checkbox" /> remember me
             </div>
-            <p>{error && <p>{error}</p>}</p>
+            <p className={s.error}>{error && <p>{error}</p>}</p>
 
             <div>
                 <button className="btn">Login</button>

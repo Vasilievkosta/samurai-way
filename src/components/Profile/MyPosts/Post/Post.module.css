@@ -1,5 +1,35 @@
-.item img {
+.item:nth-child{	
+	margin-bottom: 20px;
+}
+
+.message {
+	display: flex;
+}
+
+.image {
 	width: 50px;
+	margin-right: 20px;
 	border-radius: 50%;
 	border: 1px solid #cecece;
 }
+
+.text {
+	background-color: #f5f7fb;
+	border-radius: 10px 10px 10px 0;
+	min-width: 300px;
+	padding: 10px;
+	position: relative;
+}
+
+.text::after {
+	content: "";
+	background: radial-gradient(circle at 0 0,hsla(0,0%,100%,0) 15px,#f5f7fb 0);
+  bottom: 0;  
+  height: 15px;
+  left: -15px;
+  position: absolute;
+  width: 15px;
+}
+
+
+

@@ -10,11 +10,13 @@ export type PostType = {
 const Post = (props: PostType) => {
     return (
         <>
-            <div className={s.item}>
-                <img src={fotoGirl} alt="photoUser" />
-                {props.message}
-                <p>like: {props.like}</p>
-            </div>
+            <li className={s.item}>
+                <div className={s.message}>
+                    <img className={s.image} src={fotoGirl} alt="photoUser" />
+                    <p className={s.text}>{props.message}</p>
+                </div>
+                <p>❤️ {props.like}</p>
+            </li>
         </>
     )
 }

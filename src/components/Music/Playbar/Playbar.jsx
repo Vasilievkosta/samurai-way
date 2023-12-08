@@ -6,16 +6,37 @@ import { secondsToMMSS } from '../Track/Track'
 import SliderDemo from '../../common/Slider/Slider'
 
 const Playbar = () => {
+    const { currentTrack, handleToggleAudio, isPlaying } = useContext(AudioContext)
+    const { title, artist, preview } = currentTrack
+
+    return (
+        <div className={s.playbar}>
+            <img className={s.preview} src={preview} alt="" />
+            <button
+                className={isPlaying ? `${style.button} ${style.pause}` : style.button}
+                onClick={() => handleToggleAudio(currentTrack)}
+            ></button>
+            <div className={s.credits}>
+                <h4>{title}</h4>
+                <p>{artist}</p>
+            </div>
+            <div className={s.slider}>
+                <TimeControl />
+            </div>
+        </div>
+    )
+}
+
+export default Playbar
+
+const TimeControl = () => {
+    const { audio, currentTrack } = useContext(AudioContext)
+    const { duration } = currentTrack
     const [currentTime, setCurrentTime] = useState(0)
-
-    const { audio, currentTrack, handleToggleAudio, isPlaying } = useContext(AudioContext)
-    const { title, artist, preview, duration } = currentTrack
-
     const sliderCurrentTime = Math.round((currentTime / duration) * 100)
 
     const handleChangeCurrentTime = (value) => {
         const time = Math.round((value / 100) * duration)
-
         setCurrentTime(time)
         audio.currentTime = time
     }
@@ -31,25 +52,10 @@ const Playbar = () => {
     }, [])
 
     return (
-        <div className={s.playbar}>
-            <img className={s.preview} src={preview} alt="" />
-            <button
-                className={isPlaying ? `${style.button} ${style.pause}` : style.button}
-                onClick={() => handleToggleAudio(currentTrack)}
-            ></button>
-            <div className={s.credits}>
-                <h4>{title}</h4>
-                <p>{artist}</p>
-            </div>
-            <div className={s.slider}>
-                <p>{secondsToMMSS(currentTime)}</p>
-                <div>
-                    <SliderDemo value={sliderCurrentTime} onChange={handleChangeCurrentTime} />
-                </div>
-                <p>{secondsToMMSS(duration)}</p>
-            </div>
-        </div>
+        <>
+            <p>{secondsToMMSS(currentTime)}</p>
+            <SliderDemo value={sliderCurrentTime} onChange={handleChangeCurrentTime} />
+            <p>{secondsToMMSS(duration)}</p>
+        </>
     )
 }
-
-export default Playbar

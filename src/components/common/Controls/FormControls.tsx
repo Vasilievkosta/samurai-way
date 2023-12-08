@@ -16,7 +16,7 @@ export const Element: React.FC<ElementProps> = ({ input, meta, elementType, ...p
     return (
         <div className={s.formControl + ' ' + (hasError ? s.error : '')}>
             {React.createElement(elementType, { ...input, ...props })}
-            {hasError && <p>{meta.error}</p>}
+            {hasError && <p className={s.errorText}>{meta.error}</p>}
         </div>
     )
 }

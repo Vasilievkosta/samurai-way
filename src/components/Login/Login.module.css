@@ -6,8 +6,13 @@
     padding: 20px;
 }
 
-input + p {
+/* input + p, .error {
     color: red;
+} */
+
+.error {
+    color: red;
+    min-height: 30px;
 }
 
 .field {

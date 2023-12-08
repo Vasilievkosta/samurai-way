@@ -1,6 +1,9 @@
 .posts {
-    border: 1px solid greenyellow;
+    border-bottom: 1px solid #e5e5e5;
+    border-top: 1px solid #e5e5e5;
     padding: 20px;
+    max-height: calc(100vh - 700px);
+    overflow: auto;
 }
 
 .form {
@@ -16,8 +19,7 @@
     max-width: 800px;
 }
 
-.field {
-    height: 40px;
+.field {    
     width: 100%;
     border: 2px solid #e5e5e5;
     border-radius: 8px;

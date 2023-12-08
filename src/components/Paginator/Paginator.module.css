@@ -1,10 +1,17 @@
 .paginator {
     color: #3f4f5f;
+    padding: 0 10px;
+}
+
+.registered {
+    padding: 10px 0 0 10px;    
 }
 
 .count {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
 }
 .count span {
     padding: 2px;
@@ -14,10 +21,33 @@
     transition: border-bottom-color 0.3s;
 }
 .count span:hover {
-    border-bottom-color: blueviolet;
+border-bottom-color:   blueviolet;
 }
 
 .selectedPage {
     font-weight: 700;
+}
+
+.btn {
+    color: #3f4f5f;
+    background-color: #fff;
+    font-size: 24px;    
+    border: 2px solid transparent;
+    border-radius: 3px;
+    outline: 0;
+    cursor: pointer;
+    transition: color, background-color 0.3s;
+}
+
+.btn:hover {
+    color: #4d75a3;  
+}
+.btn:active {
+    color: #fff;
+    background-color: #4d75a3;
+}
+
+.btn:focus {    
+    border: 2px solid #4d75a3;
 }
 
