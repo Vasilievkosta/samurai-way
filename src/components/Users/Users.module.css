@@ -16,7 +16,7 @@
     height: 75px;
     object-fit: cover;
     border-radius: 50%;
-    border: 2px solid lightseagreen;    
+    border: 2px solid lightseagreen;
 }
 
 .avatar {
@@ -58,9 +58,23 @@
     overflow: hidden;
     text-overflow: ellipsis;
     color: #3f4f5f;
+    max-width: 800px;
 }
 
-.about span {
-    display: inline-block;
-    max-width: calc(100vw - 350px);
+@media screen and (max-width: 1199px){
+    .about {
+        max-width: 600px;
+    }
+}
+
+@media screen and (max-width: 1023px){
+    .about {
+        max-width: 450px;
+    }
+}
+
+@media screen and (max-width: 767px){
+    .about {
+        max-width: 180px;
+    }
 }
