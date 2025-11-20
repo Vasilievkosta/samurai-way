@@ -42,14 +42,18 @@ const TimeControl = () => {
     }
 
     useEffect(() => {
-        const timeInterval = setInterval(() => {
+        if (!audio) return
+
+        const updateTime = () => {
             setCurrentTime(audio.currentTime)
-        }, 1000)
+        }
+
+        const timeInterval = setInterval(updateTime, 1000)
 
         return () => {
             clearInterval(timeInterval)
         }
-    }, [])
+    }, [audio])
 
     return (
         <>
