@@ -10,6 +10,7 @@ const initialState = {
         id: 2,
         email: 'blabla@bla.bla',
         login: 'samurai',
+        token: 'token',
     },
     captcha: {
         url: '',
@@ -56,6 +57,7 @@ export const loginTC = (email: string, password: string, rememberMe: boolean, ca
 
         if (data.resultCode === 0) {
             dispatch(getAuthUserData())
+            localStorage.setItem('auth-token', data.data.token)
         } else {
             if (data.resultCode === 10) {
                 dispatch(getCaptchaTC())
@@ -73,6 +75,8 @@ export const logoutTC = () => {
 
         if (data.resultCode === 0) {
             dispatch(setAuthUserData(initialState.data))
+            localStorage.removeItem('auth-token')
+
             dispatch(setLogout())
         }
     }
@@ -97,4 +101,5 @@ export type AuthDataType = {
     id: number
     email: string
     login: string
+    token: string
 }

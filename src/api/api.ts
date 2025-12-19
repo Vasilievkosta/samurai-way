@@ -5,14 +5,20 @@ import { ResponseAuthType } from 'redux/auth-reducer'
 import { DataPhotoType, ResponseGetProfileType, ResponseStatusType } from 'redux/profile-reducer'
 import { ResponseGetUserType } from 'redux/users-reducer'
 
-const apiKey = process.env.REACT_APP_API_KEY as string
-
 const instance = axios.create({
     withCredentials: true,
-    baseURL: 'https://social-network.samuraijs.com/api/1.0/',
+    baseURL: process.env.REACT_APP_BASE_URL,
     headers: {
-        'API-KEY': apiKey,
+        'API-KEY': process.env.REACT_APP_API_KEY as string,
     },
+})
+
+instance.interceptors.request.use((config) => {
+    if (!config.headers) {
+        config.headers = {}
+    }
+    config.headers['Authorization'] = `Bearer ${localStorage.getItem('auth-token')}`
+    return config
 })
 
 export const getUsers = (currentPage: number, pageSize: number): Promise<ResponseGetUserType> => {
